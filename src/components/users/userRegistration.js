@@ -36,12 +36,6 @@ class UserRegistration extends Component{
 
         this.reservationFromOnClick = this.reservationFromOnClick.bind(this);
         this.reservationToOnClick = this.reservationToOnClick.bind(this);
-        this.roomPlusOnClick = this.roomPlusOnClick.bind(this);
-        this.roomMinusOnClick = this.roomMinusOnClick.bind(this);
-        this.adultsPlusOnClick = this.adultsPlusOnClick.bind(this);
-        this.adultsMinusOnClick = this.adultsMinusOnClick.bind(this);
-        this.childrenPlusOnClick = this.childrenPlusOnClick.bind(this);
-        this.childrenMinusOnClick = this.childrenMinusOnClick.bind(this);
     }
 
     reservationFromOnClick(event) {
@@ -71,45 +65,6 @@ class UserRegistration extends Component{
         }
     }
 
-    roomPlusOnClick(){
-        this.setState({numberOfRooms: this.state.numberOfRooms + 1});
-    }
-
-    roomMinusOnClick(){
-        let numberOfRooms = this.state.numberOfRooms - 1;
-
-        if(numberOfRooms < 0)
-            numberOfRooms = 0;
-
-        this.setState({numberOfRooms: numberOfRooms})
-    }
-
-    adultsPlusOnClick(){
-        this.setState({numberOfAdults: this.state.numberOfAdults + 1});
-    }
-
-    adultsMinusOnClick(){
-        let numberOfAdults = this.state.numberOfAdults - 1;
-
-        if(numberOfAdults < 0)
-            numberOfAdults = 0;
-
-        this.setState({numberOfAdults: numberOfAdults})
-    }
-
-    childrenPlusOnClick(){
-        this.setState({numberOfChildren: this.state.numberOfChildren + 1});
-    }
-
-    childrenMinusOnClick(){
-        let numberOfChildren = this.state.numberOfChildren - 1;
-
-        if(numberOfChildren < 0)
-            numberOfChildren = 0;
-
-        this.setState({numberOfChildren: numberOfChildren})
-    }
-
     render() {
 
         return (
@@ -125,21 +80,33 @@ class UserRegistration extends Component{
                 <h3>{this.state.daysBetween}</h3>
                 <h3>pokoje</h3>
                 <div>
-                    <Button label="+" onClick={this.roomPlusOnClick}/>
+                    <Button label="+" onClick={(e) => this.setState({numberOfRooms: this.state.numberOfRooms + 1})}/>
                     <InputText value={this.state.numberOfRooms} disabled={true}/>
-                    <Button label="-" onClick={this.roomMinusOnClick}/>
+                    <Button label="-" onClick={(e) => {let numberOfRooms = this.state.numberOfRooms - 1;
+                                                       if(numberOfRooms < 0)
+                                                           numberOfRooms = 0;
+                                                       this.setState({numberOfRooms: numberOfRooms});}
+                                              }/>
                 </div>
                 <h3>dorośli</h3>
                 <div>
-                    <Button label="+" onClick={this.adultsPlusOnClick}/>
+                    <Button label="+" onClick={(e) => {this.setState({numberOfAdults: this.state.numberOfAdults + 1})}}/>
                     <InputText value={this.state.numberOfAdults} disabled={true}/>
-                    <Button label="-" onClick={this.adultsMinusOnClick}/>
+                    <Button label="-" onClick={(e) => {let numberOfAdults = this.state.numberOfAdults - 1;
+                                                       if(numberOfAdults < 0)
+                                                           numberOfAdults = 0;
+                                                       this.setState({numberOfAdults: numberOfAdults});}
+                                              }/>
                 </div>
                 <h3>dzieci</h3>
                 <div>
-                    <Button label="+" onClick={this.childrenPlusOnClick}/>
+                    <Button label="+" onClick={(e) => this.setState({numberOfChildren: this.state.numberOfChildren + 1})}/>
                     <InputText value={this.state.numberOfChildren} disabled={true}/>
-                    <Button label="-" onClick={this.childrenMinusOnClick}/>
+                    <Button label="-" onClick={(e) => {let numberOfChildren = this.state.numberOfChildren - 1;
+                                                       if(numberOfChildren < 0)
+                                                          numberOfChildren = 0;
+                                                       this.setState({numberOfChildren: numberOfChildren});}
+                                               }/>
                 </div>
             </div>
         );
