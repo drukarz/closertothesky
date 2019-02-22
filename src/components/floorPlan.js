@@ -18,24 +18,19 @@ class FloorPlan extends Component{
 
     TallToiletLength = 140;
     TallToiletWidth = 60;
-
     Room1Length = 220;
     Room1WidthDownLongWall = 200;
     Room1IndentationLength = 60;
     Room1IndentationWidth = 80;
     Room1WidthDown = 360;
     Room1WidthUp = 280;
-
     Room2WidthUp = 280;
     Room2LengthRight = 160;
-
     Room5Width = 250;
     Room6Width = 260;
-
     ToiletLength = 120;
     TallToiletLength = 140;
     TallToiletWidth = 80;
-
     DoorWidth=40;
     HallLength = 60;
     DoorFromWall=10;
@@ -221,74 +216,6 @@ class FloorPlan extends Component{
 
         this.setState({ opacity:newItems });
     }
-
-    /*shapeSceneFuncT1(context, shape){
-        context.beginPath();
-        context.moveTo(280,this.FirstLineDownY);
-        context.lineTo(280, 120);
-        this.drawDoor(context,280,120,this.DoorWidth, this.Left90);
-        context.lineTo(340, 80);
-        context.lineTo(340, this.FirstLineDownY);
-        context.closePath();
-        context.fillStrokeShape(shape);
-    }
-
-    shapeSceneFuncT2(context, shape){
-        context.beginPath();
-        context.lineTo(340, this.FirstLineDownY);
-        context.lineTo(400, this.FirstLineDownY);
-        context.lineTo(400, 120);
-        this.drawDoor(context,400,120,this.DoorWidth, this.Right270);
-        context.lineTo(340, 80);
-        context.closePath();
-        context.fillStrokeShape(shape);
-    }
-    shapeSceneFuncT3(context, shape){
-        context.beginPath();
-        context.moveTo(this.MaxX,this.FirstLineDownY);
-        context.lineTo(680,this.FirstLineDownY);
-        this.drawDoor(context,680,this.FirstLineDownY,this.DoorWidth, this.Right0);
-        context.lineTo(620,this.FirstLineDownY);
-        context.lineTo(620,this.FirstLineDownY + this.ToiletLength);
-        context.lineTo(this.MaxX,this.FirstLineDownY + this.ToiletLength);
-        context.closePath();
-        context.fillStrokeShape(shape);
-    }
-    shapeSceneFuncT4(context, shape){
-        context.beginPath();
-        context.moveTo(this.MaxX - 80, this.FirstLineDownY);
-        context.lineTo(this.MaxX - 80,this.FirstLineDownY  + this.ToiletLength);
-        context.lineTo(this.MaxX - 160,this.FirstLineDownY  + this.ToiletLength);
-        context.lineTo(this.MaxX - 160,this.FirstLineDownY  + this.ToiletLength - 10);
-        this.drawDoor(context,this.MaxX - 160,this.FirstLineDownY  + this.ToiletLength - 10,this.DoorWidth, this.Left90);
-        context.lineTo(this.MaxX - 160, this.FirstLineDownY);
-        context.closePath();
-        context.fillStrokeShape(shape);
-    }
-    shapeSceneFuncT5(context, shape) {
-        context.beginPath();
-        context.moveTo(this.MaxX - this.WidthR4 - 2 * this.DoorFromWall - this.DoorWidth, this.SecondLineUpY);
-        context.lineTo(this.MaxX - this.WidthR4 - 2 * this.DoorFromWall - this.DoorWidth, this.SecondLineUpY + 70);
-        this.drawDoor(context,this.MaxX - this.WidthR4 - 2 * this.DoorFromWall - this.DoorWidth,
-                              this.SecondLineUpY + 70,this.DoorWidth, this.Left270);
-        context.lineTo(this.MaxX - this.WidthR4 - 2 * this.DoorFromWall - this.DoorWidth, //700 - 240 -20 - 40
-            this.SecondLineUpY + this.ToiletLength);
-        context.lineTo(310, this.SecondLineUpY + this.ToiletLength);
-        context.lineTo(310, this.SecondLineUpY);
-        context.closePath();
-        context.fillStrokeShape(shape);
-    }
-    shapeSceneFuncT6(context, shape) {
-        context.beginPath();
-        context.moveTo(310, this.SecondLineUpY + this.ToiletLength);
-        context.lineTo(310, this.SecondLineUpY);
-        context.lineTo(220, this.SecondLineUpY);
-        context.lineTo(220, this.SecondLineUpY  + this.ToiletLength - this.DoorFromWall - this.DoorWidth);
-        this.drawDoor(context,220, this.SecondLineUpY  + this.ToiletLength - this.DoorFromWall - this.DoorWidth,this.DoorWidth, this.Right90);
-        context.lineTo(220, this.SecondLineUpY  + this.ToiletLength);
-        context.closePath();
-        context.fillStrokeShape(shape);
-    }*/
 
     render() {
         return (
