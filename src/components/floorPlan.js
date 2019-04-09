@@ -1,5 +1,14 @@
 import React, { Component } from 'react';
-import { Stage, Layer, Shape, Rect } from 'react-konva';
+import { Stage, Layer, Shape, Rect, Image, Circle} from 'react-konva';
+import Img from './Img.js';
+
+import logo from '../assets/images/logo.png'
+import R1 from '../assets/images/R1.jpeg';
+import R2 from '../assets/images/R2.jpeg';
+import R3 from '../assets/images/R3.jpeg';
+import R4 from '../assets/images/R4.jpeg';
+import R5 from '../assets/images/R5.jpeg';
+import R6 from '../assets/images/R6.jpeg';
 
 class FloorPlan extends Component{
 
@@ -53,7 +62,8 @@ class FloorPlan extends Component{
     }
 
     state = {
-        opacity: [1, 1, 1, 1, 1, 1]
+        opacity: [1, 1, 1, 1, 1, 1],
+        showImage: [0, 0, 0, 0, 0, 0, 0]
     };
 
     drawDoor(context, xStart, yStart, width, orientation){
@@ -115,7 +125,6 @@ class FloorPlan extends Component{
         context.closePath();
         context.fillStrokeShape(shape);
     }
-
     shapeSceneFuncR2(context, shape){
         let doorFromRightWall = 40;
         context.beginPath();
@@ -132,7 +141,6 @@ class FloorPlan extends Component{
         context.closePath();
         context.fillStrokeShape(shape);
     }
-
     shapeSceneFuncR3(context, shape){
         context.beginPath();
         context.moveTo(this.Room1WidthUp + this.Room2WidthUp,this.MinY);
@@ -161,7 +169,6 @@ class FloorPlan extends Component{
         context.closePath();
         context.fillStrokeShape(shape);
     }
-
     shapeSceneFuncR5(context, shape) {
         context.beginPath();
         context.moveTo(2 * this.Room5Width, this.Room1Length + this.HallLength);
@@ -177,7 +184,6 @@ class FloorPlan extends Component{
         context.closePath();
         context.fillStrokeShape(shape);
     }
-
     shapeSceneFuncR6(context, shape) {
         context.beginPath();
         context.moveTo(this.MinX + this.Room6Width + this.TallToiletWidth, this.Room1Length + this.HallLength);
@@ -214,10 +220,22 @@ class FloorPlan extends Component{
             newItems[id - 1] = 1;
         }
 
-        this.setState({ opacity:newItems });
+        this.setState({opacity:newItems });
+
+        const images = [...this.state.showImage];
+
+        for(let index = 0; index < 6; index++){
+            images[index] = 0;
+        }
+
+        images[id -1] = 1;
+
+        this.setState({showImage:images });
     }
 
+
     render() {
+
         return (
             <Stage width={window.innerWidth} height={window.innerHeight}>
                 <Layer>
@@ -227,6 +245,13 @@ class FloorPlan extends Component{
                     <Shape sceneFunc={this.shapeSceneFuncR4} fill="#00D2FF" stroke="black" opacity={this.state.opacity[3]} strokeWidth={4} onClick={(e) => this.onClick(4, e)}/>
                     <Shape sceneFunc={this.shapeSceneFuncR5} fill="#00D2FF" stroke="black" opacity={this.state.opacity[4]} strokeWidth={4} onClick={(e) => this.onClick(5, e)}/>
                     <Shape sceneFunc={this.shapeSceneFuncR6} fill="#00D2FF" stroke="black" opacity={this.state.opacity[5]} strokeWidth={4} onClick={(e) => this.onClick(6, e)}/>
+                    <Img src={R1} x={800} y={100} width={1 + 228 * this.state.showImage[0]} height={1 + 252 * this.state.showImage[0]} space="fill"/>
+                    <Img src={R2} x={800} y={100} width={1 + 228 * this.state.showImage[1]} height={1 + 252 * this.state.showImage[1]} space="fill"/>
+                    <Img src={R3} x={800} y={100} width={1 + 228 * this.state.showImage[2]} height={1 + 252 * this.state.showImage[2]} space="fill"/>
+                    <Img src={R4} x={800} y={100} width={1 + 228 * this.state.showImage[3]} height={1 + 252 * this.state.showImage[3]} space="fill"/>
+                    <Img src={R5} x={800} y={100} width={1 + 228 * this.state.showImage[4]} height={1 + 252 * this.state.showImage[4]} space="fill"/>
+                    <Img src={R6} x={800} y={100} width={1 + 228 * this.state.showImage[5]} height={1 + 252 * this.state.showImage[5]} space="fill"/>
+                    <Circle />
                 </Layer>
             </Stage>
         );
