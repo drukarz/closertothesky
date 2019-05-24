@@ -2,8 +2,13 @@ import React, { Component } from 'react';
 import {Calendar} from 'primereact/calendar';
 import {Button} from 'primereact/button';
 import {InputText} from 'primereact/inputtext';
+import PropTypes from 'prop-types';
 
 class UserRegistration extends Component{
+
+    static contextTypes = {
+        router: PropTypes.object
+    };
 
     constructor() {
         super();
@@ -31,11 +36,13 @@ class UserRegistration extends Component{
             daysBetween: '',
             numberOfRooms: 0,
             numberOfAdults: 0,
-            numberOfChildren: 0
+            numberOfChildren: 0,
+            errorMessage: ""
         };
 
         this.reservationFromOnClick = this.reservationFromOnClick.bind(this);
         this.reservationToOnClick = this.reservationToOnClick.bind(this);
+        this.makeReservationOnClick = this.makeReservationOnClick.bind(this);
     }
 
     reservationFromOnClick(event) {
@@ -63,10 +70,36 @@ class UserRegistration extends Component{
         if(daysBetween > 1){
             this.setState({daysBetween: 'wybrano ' + daysBetween + ' dni'});
         }
+
+        if(daysBetween > 0){
+            this.setState({errorMessage: ''});
+        }
+    }
+
+    makeReservationOnClick(event){
+
+        if(this.state.daysBetween < 1) {
+            this.setState({errorMessage: 'nie wybrano dni'});
+            return;
+        }
+
+        if(this.state.numberOfRooms === 0) {
+            this.setState({errorMessage: 'nie wybrano liczby pokoi'});
+            return;
+        }
+
+        if(this.state.numberOfAdults === 0) {
+            this.setState({errorMessage: 'nie wybrano liczby osob'});
+            return;
+        }
+
+        this.context.router.history.push({
+            pathname: '/floor',
+            state: { dateStart : this.state.dateStart, dateStop : this.state.dateStop}
+        });
     }
 
     render() {
-
         return (
             <div>
                 <h3>rezerwuj od</h3>
@@ -80,22 +113,26 @@ class UserRegistration extends Component{
                 <h3>{this.state.daysBetween}</h3>
                 <h3>pokoje</h3>
                 <div>
-                    <Button label="+" onClick={(e) => this.setState({numberOfRooms: this.state.numberOfRooms + 1})}/>
+                    <Button label="+" onClick={(e) => {this.setState({numberOfRooms: this.state.numberOfRooms + 1})
+                                                       this.setState({errorMessage: ''});}}/>
                     <InputText value={this.state.numberOfRooms} disabled={true}/>
                     <Button label="-" onClick={(e) => {let numberOfRooms = this.state.numberOfRooms - 1;
-                                                       if(numberOfRooms < 0)
+                                                       if (numberOfRooms < 0)
                                                            numberOfRooms = 0;
-                                                       this.setState({numberOfRooms: numberOfRooms});}
-                                              }/>
+                                                       this.setState({numberOfRooms: numberOfRooms});
+                                                       this.setState({errorMessage: ''});}
+                    }/>
                 </div>
                 <h3>dorośli</h3>
                 <div>
-                    <Button label="+" onClick={(e) => {this.setState({numberOfAdults: this.state.numberOfAdults + 1})}}/>
+                    <Button label="+" onClick={(e) => {this.setState({numberOfAdults: this.state.numberOfAdults + 1})
+                                                       this.setState({errorMessage: ''});}}/>
                     <InputText value={this.state.numberOfAdults} disabled={true}/>
                     <Button label="-" onClick={(e) => {let numberOfAdults = this.state.numberOfAdults - 1;
                                                        if(numberOfAdults < 0)
                                                            numberOfAdults = 0;
-                                                       this.setState({numberOfAdults: numberOfAdults});}
+                                                       this.setState({numberOfAdults: numberOfAdults});
+                                                       this.setState({errorMessage: ''});}
                                               }/>
                 </div>
                 <h3>dzieci</h3>
@@ -108,6 +145,10 @@ class UserRegistration extends Component{
                                                        this.setState({numberOfChildren: numberOfChildren});}
                                                }/>
                 </div>
+                <div>
+                    <Button label="rezerwuj" onClick={this.makeReservationOnClick}/>
+                </div>
+                <h3>{this.state.errorMessage}</h3>
             </div>
         );
     }
