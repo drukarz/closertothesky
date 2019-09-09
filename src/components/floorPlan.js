@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Stage, Layer, Shape, Rect, Text} from 'react-konva';
+import ConfirmReservationDialog from './confirmReservationDialog.js';
 import axios from "axios/index";
 
 import Img from './Img.js';
@@ -227,7 +228,7 @@ class FloorPlan extends Component{
         }
 
         if(newItems[id -1] == 1){
-            newItems[id -1] = 0.5;
+            newItems[id -1] = 0.1;
         }
         else{
             newItems[id - 1] = 1;
@@ -257,6 +258,9 @@ class FloorPlan extends Component{
 
     componentDidMount()
     {
+        console.log('http://localhost:8989/reservations?fromDate=' + this.props.location.state.dateStart +
+            '&toDate=' + this.props.location.state.dateStop);
+
         axios.get('http://localhost:8989/reservations?fromDate=' + this.props.location.state.dateStart +
                        '&toDate=' + this.props.location.state.dateStop)
             .then(reservations => {
@@ -278,29 +282,35 @@ class FloorPlan extends Component{
     render() {
 
         return (
-            <Stage width={window.innerWidth} height={window.innerHeight}>
-                <Layer>
-                    <Shape sceneFunc={this.shapeSceneFuncR1} fill={this.state.colors[0]} stroke="black" opacity={this.state.opacity[0]} strokeWidth={4} onClick={(e) => this.onClick(1, e)}/>
-                    <Shape sceneFunc={this.shapeSceneFuncR2} fill={this.state.colors[1]} stroke="black" opacity={this.state.opacity[1]} strokeWidth={4} onClick={(e) => this.onClick(2, e)}/>
-                    <Shape sceneFunc={this.shapeSceneFuncR3} fill={this.state.colors[2]} stroke="black" opacity={this.state.opacity[2]} strokeWidth={4} onClick={(e) => this.onClick(3, e)}/>
-                    <Shape sceneFunc={this.shapeSceneFuncR4} fill={this.state.colors[3]} stroke="black" opacity={this.state.opacity[3]} strokeWidth={4} onClick={(e) => this.onClick(4, e)}/>
-                    <Shape sceneFunc={this.shapeSceneFuncR5} fill={this.state.colors[4]} stroke="black" opacity={this.state.opacity[4]} strokeWidth={4} onClick={(e) => this.onClick(5, e)}/>
-                    <Shape sceneFunc={this.shapeSceneFuncR6} fill={this.state.colors[5]} stroke="black" opacity={this.state.opacity[5]} strokeWidth={4} onClick={(e) => this.onClick(6, e)}/>
-                    <Img src={R1} x={800} y={100} width={1 + 228 * this.state.showImage[0]} height={1 + 252 * this.state.showImage[0]} space="fill"/>
-                    <Img src={R2} x={800} y={100} width={1 + 228 * this.state.showImage[1]} height={1 + 252 * this.state.showImage[1]} space="fill"/>
-                    <Img src={R3} x={800} y={100} width={1 + 228 * this.state.showImage[2]} height={1 + 252 * this.state.showImage[2]} space="fill"/>
-                    <Img src={R4} x={800} y={100} width={1 + 228 * this.state.showImage[3]} height={1 + 252 * this.state.showImage[3]} space="fill"/>
-                    <Img src={R5} x={800} y={100} width={1 + 228 * this.state.showImage[4]} height={1 + 252 * this.state.showImage[4]} space="fill"/>
-                    <Img src={R6} x={800} y={100} width={1 + 228 * this.state.showImage[5]} height={1 + 252 * this.state.showImage[5]} space="fill"/>
-                    <Rect x = {800} y = {400} stroke="black" strokeWidth={5} fill="#ddd" width={400} height={200}  visible = {this.state.descriptionVisible}/>
-                    <Text x = {800} y = {450} text = {this.state.descriptions[this.state.visibleRoomId]}
-                          width={400} fontSize={22} align="center" fontFamily="Calabri" padding={20}
-                          fill="#555" visible = {this.state.descriptionVisible}/>
-                    <Rect x = {850} y = {540} stroke="black" strokeWidth={2} fill="#00D2FF" width={200} height={50}
-                          visible = {this.state.enableReservation}/>
-                    <Text x = {900} y = {550} text = "REZERWUJ" visible = {this.state.enableReservation} onClick={(e) => this.reservationOnClick(e)}/>
-                </Layer>
-            </Stage>
+            <div>
+                {/*<ConfirmReservationDialog show="true"/>*/}
+
+                <Stage width={window.innerWidth} height={window.innerHeight}>
+                    <Layer>
+                        <Shape sceneFunc={this.shapeSceneFuncR1} fill={this.state.colors[0]} stroke="black" opacity={this.state.opacity[0]} strokeWidth={4} onClick={(e) => this.onClick(1, e)}/>
+                        <Shape sceneFunc={this.shapeSceneFuncR2} fill={this.state.colors[1]} stroke="black" opacity={this.state.opacity[1]} strokeWidth={4} onClick={(e) => this.onClick(2, e)}/>
+                        <Shape sceneFunc={this.shapeSceneFuncR3} fill={this.state.colors[2]} stroke="black" opacity={this.state.opacity[2]} strokeWidth={4} onClick={(e) => this.onClick(3, e)}/>
+                        <Shape sceneFunc={this.shapeSceneFuncR4} fill={this.state.colors[3]} stroke="black" opacity={this.state.opacity[3]} strokeWidth={4} onClick={(e) => this.onClick(4, e)}/>
+                        <Shape sceneFunc={this.shapeSceneFuncR5} fill={this.state.colors[4]} stroke="black" opacity={this.state.opacity[4]} strokeWidth={4} onClick={(e) => this.onClick(5, e)}/>
+                        <Shape sceneFunc={this.shapeSceneFuncR6} fill={this.state.colors[5]} stroke="black" opacity={this.state.opacity[5]} strokeWidth={4} onClick={(e) => this.onClick(6, e)}/>
+                        <Img src={R1} x={800} y={100} width={1 + 228 * this.state.showImage[0]} height={1 + 252 * this.state.showImage[0]} space="fill"/>
+                        <Img src={R2} x={800} y={100} width={1 + 228 * this.state.showImage[1]} height={1 + 252 * this.state.showImage[1]} space="fill"/>
+                        <Img src={R3} x={800} y={100} width={1 + 228 * this.state.showImage[2]} height={1 + 252 * this.state.showImage[2]} space="fill"/>
+                        <Img src={R4} x={800} y={100} width={1 + 228 * this.state.showImage[3]} height={1 + 252 * this.state.showImage[3]} space="fill"/>
+                        <Img src={R5} x={800} y={100} width={1 + 228 * this.state.showImage[4]} height={1 + 252 * this.state.showImage[4]} space="fill"/>
+                        <Img src={R6} x={800} y={100} width={1 + 228 * this.state.showImage[5]} height={1 + 252 * this.state.showImage[5]} space="fill"/>
+                        <Rect x = {800} y = {400} stroke="black" strokeWidth={5} fill="#ddd" width={400} height={200}  visible = {this.state.descriptionVisible}/>
+                        <Text x = {800} y = {450} text = {this.state.descriptions[this.state.visibleRoomId]}
+                              width={400} fontSize={22} align="center" fontFamily="Calabri" padding={20}
+                              fill="#555" visible = {this.state.descriptionVisible}/>
+                        <Rect x = {850} y = {540} stroke="black" strokeWidth={2} fill="#00D2FF" width={200} height={50}
+                              visible = {this.state.enableReservation}/>
+                        <Text x = {900} y = {550} text = "REZERWUJ" visible = {this.state.enableReservation} onClick={(e) => this.reservationOnClick(e)}/>
+                    </Layer>
+                </Stage>
+            </div>
+
+
         );
     }
 }

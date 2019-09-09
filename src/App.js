@@ -6,7 +6,7 @@ import 'primereact/resources/primereact.min.css';
 import 'primeicons/primeicons.css';
 
 import UserRegistration from './components/users/userRegistration';
-import Layout from "./components/layout";
+import Home from "./components/Home";
 import FloorPlan from "./components/floorPlan";
 
 class App extends Component {
@@ -20,13 +20,11 @@ class App extends Component {
 
             <Router>
                 <div className="container">
-                    <Route exact path="/" component={Layout} />
+                    <Route exact path="/" component={Home} />
                     <Route path="/registration" component={UserRegistration} />
                     <Route path="/floor" component={FloorPlan}/>
                 </div>
             </Router>
-
-
         );
     }
 }

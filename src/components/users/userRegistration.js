@@ -100,8 +100,8 @@ class UserRegistration extends Component{
     }
 
     render() {
-        return (
-            <div>
+                return (
+                <div>
                 <h3>rezerwuj od</h3>
                 <Calendar minDate={this.state.minDateFrom} maxDate={this.state.maxDate}
                           value={this.state.dateStart} onChange={this.reservationFromOnClick} showIcon={true} />
