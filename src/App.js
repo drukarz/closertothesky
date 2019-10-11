@@ -5,9 +5,8 @@ import 'primereact/resources/themes/nova-light/theme.css';
 import 'primereact/resources/primereact.min.css';
 import 'primeicons/primeicons.css';
 
-import UserRegistration from './components/users/userRegistration';
 import Home from "./components/Home";
-import FloorPlan from "./components/floorPlan";
+import FloorPlan from "./components/FloorPlan/FloorPlan";
 
 class App extends Component {
     
@@ -21,7 +20,6 @@ class App extends Component {
             <Router>
                 <div className="container">
                     <Route exact path="/" component={Home} />
-                    <Route path="/registration" component={UserRegistration} />
                     <Route path="/floor" component={FloorPlan}/>
                 </div>
             </Router>

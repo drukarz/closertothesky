@@ -1,32 +1,10 @@
 .App {
   text-align: center;
 }
-
-.App-logo {
-  animation: App-logo-spin infinite 20s linear;
-  height: 80px;
-}
-
-.App-header {
-  background-color: #222;
-  height: 190px;
-  padding: 20px;
-  color: white;
-}
-
-.App-intro {
-    padding: 2em;
-  font-size: large;
-}
-
-@keyframes App-logo-spin {
-  from { transform: rotate(0deg); }
-  to { transform: rotate(360deg); }
-}
-
 :root {
   --off-white: #fafafa;
 }
+
 .nav {
   background-color: var(--off-white);
   position: sticky;
@@ -60,17 +38,59 @@
   display: inline;
 }
 
-.nav-item-back{
+.nav-item-common{
   display: inline-block;
-  background-image : url('./assets/images/button.jpg');
   width: 15%;
   height: 60px;
   background-repeat: no-repeat;
 }
 
-.nav-item:hover {
-  color: black;
-  cursor: pointer;
+.nav-item-back-offer{
+  background-image : url('./assets/images/buttons/offer.jpg');
+}
+
+.nav-item-back-offer:hover {
+  background-image : url('./assets/images/buttons/offer_h.jpg');
+}
+
+.nav-item-back-about-us{
+  background-image : url('./assets/images/buttons/about_us.jpg');
+}
+
+.nav-item-back-about-us:hover {
+  background-image : url('./assets/images/buttons/about_us_h.jpg');
+}
+
+.nav-item-back-reservation{
+  background-image : url('./assets/images/buttons/reservation.jpg');
+}
+
+.nav-item-back-reservation:hover {
+  background-image : url('./assets/images/buttons/reservation_h.jpg');
+}
+
+.nav-item-back-gallery{
+  background-image : url('./assets/images/buttons/gallery.jpg');
+}
+
+.nav-item-back-gallery:hover {
+  background-image : url('./assets/images/buttons/gallery_h.jpg');
+}
+
+.nav-item-back-attractions{
+  background-image : url('./assets/images/buttons/attractions.jpg');
+}
+
+.nav-item-back-attractions:hover {
+  background-image : url('./assets/images/buttons/attractions_h.jpg');
+}
+
+.nav-item-back-contact{
+  background-image : url('./assets/images/buttons/contact.jpg');
+}
+
+.nav-item-back-contact:hover {
+  background-image : url('./assets/images/buttons/contact_h.jpg');
 }
 
 .section {
@@ -81,13 +101,75 @@
   color: white;
 }
 
-.section-content {
-  max-width: 800px;
-  margin: 0 auto;
+.section-1 {
+  background-image : url('./assets/images/section_1.jpg');
+  background-repeat: no-repeat;
+  background-size: 100vw;
   padding: 40px;
 }
 
-.top-width {
-  width:  100vw; /* For 100% screen width */
+.section-2 {
+  background-image : url('./assets/images/section_2.jpg');
+  background-repeat: no-repeat;
+  background-size: 100vw;
+  /*padding: 40px;*/
 }
+
+.top-width {
+  width:  100vw;
+}
+
+.reg-item {
+  max-width: 900px;
+  padding: 0rem 2rem;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 100%;
+}
+
+.reg-item-1{
+  max-width: 300px;
+  padding: 0rem 2rem;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 100%;
+}
+
+.offer-text
+{
+  text-align: left;
+  font-size: 15pt;
+  width:  100%;
+}
+
+.img-space
+{
+  margin:0 5%;
+}
+
+.gallery-img-space
+{
+  width:  500px;
+  height: 300px;
+}
+
+.img-center {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 50%;
+}
+
+.img-c {
+  position: absolute;
+  transform: translateX(-50%) translateY(-50%);
+  max-width: 100%;
+  max-height: 100%;
+}
+
+
 

@@ -13,7 +13,7 @@ class Navbar extends Component
                 <div >
                     <ul >
                         <li className="nav-item">
-                            <Link className="nav-item-back"
+                            <Link className="nav-item-common nav-item-back-offer"
                                 activeClass="active"
                                 to="section1"
                                 spy={true}
@@ -24,7 +24,7 @@ class Navbar extends Component
                             </Link>
                         </li>
                         <li className="nav-item">
-                            <Link className="nav-item-back"
+                            <Link className="nav-item-common nav-item-back-about-us"
                                 activeClass="active"
                                 to="section2"
                                 spy={true}
@@ -35,7 +35,7 @@ class Navbar extends Component
                             </Link>
                         </li>
                         <li className="nav-item">
-                            <Link className="nav-item-back"
+                            <Link className="nav-item-common nav-item-back-reservation"
                                 activeClass="active"
                                 to="section3"
                                 spy={true}
@@ -46,7 +46,7 @@ class Navbar extends Component
                             </Link>
                         </li>
                         <li className="nav-item">
-                            <Link className="nav-item-back"
+                            <Link className="nav-item-common nav-item-back-gallery"
                                 activeClass="active"
                                 to="section4"
                                 spy={true}
@@ -57,7 +57,7 @@ class Navbar extends Component
                             </Link>
                         </li>
                         <li className="nav-item">
-                            <Link className="nav-item-back"
+                            <Link className="nav-item-common nav-item-back-attractions"
                                 activeClass="active"
                                 to="section5"
                                 spy={true}
@@ -68,7 +68,7 @@ class Navbar extends Component
                             </Link>
                         </li>
                         <li className="nav-item">
-                            <Link className="nav-item-back"
+                            <Link className="nav-item-common nav-item-back-contact"
                                 activeClass="active"
                                 to="section6"
                                 spy={true}
