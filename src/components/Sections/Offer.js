@@ -22,10 +22,10 @@ class Offer extends Component{
                 </h3>
                 <ul>
                     <li>
-                        2-osobowych typu DBL (1 łóżko)
+                        2-osobowych
                     </li>
                     <li>
-                        2-osobowych typu TWIN (2 łóżka)
+                        3-osobowych
                     </li>
                     <li>
                         4-osobowych
@@ -34,35 +34,13 @@ class Offer extends Component{
                 <h3>
                     Cennik
                 </h3>
-                Cennik na noclegi dla klientów indywidualnych dostępny jest poprzez rezerwację online (lub telefonicznie).
+                <br/>
+
+                Cennik na noclegi dla klientów indywidualnych dostępny jest poprzez rezerwację online lub telefonicznie.
                 <br />
-                <h3>
-                    Cena pokoju zawiera:
-                </h3>
-                <ul>
-                    <li>
-                        nocleg w komfortowym pokoju
-                    </li>
-                    <li>
-                        wyżywienie
-                    </li>
-                    <li>
-                        bezpłatny dostęp do bezprzewodowego internetu
-                    </li>
-                    <li>
-                        parking
-                    </li>
-                    <li>
-                        8% VAT
-                    </li>
-                    <li>
-                        dzieci do lat 4 nocleg w pokoju rodziców lub opiekunów – bez dostawki (max 2 dzieci w pokoju) – gratis
-                    </li>
-                </ul>
+                Dzieci do lat 4 nocleg w pokoju rodziców lub opiekunów – bez dostawki (max 2 dzieci w pokoju) – gratis
                 <br />
                 Doba hotelowa rozpoczyna się od godz. 14:00 i trwa do godz.12:00
-                <br/>
-                <br/>
                 <br/>
              </div>
         );

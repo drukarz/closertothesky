@@ -49,7 +49,7 @@ class Gallery extends Component
         if(actionId === "attractions")
         {
             this.setState({header: "Wokół Nas",
-                images : ['A1', 'A2', 'A3', 'A4', 'A5', 'A6', 'A7', 'A8'].map( (name, index) => {
+                images : ['A1', 'A2', 'A3', 'A4', 'A5', 'A6'].map( (name, index) => {
                     return <img key={index}
                                 className="gallery-img-space" alt=""
                                 src={require(`../../assets/images/gallery/around/${name}.JPG`)} />
@@ -87,7 +87,6 @@ class Gallery extends Component
                     </Dialog>
                 </div>
             </div>
-
         );
     }
 }

@@ -192,12 +192,12 @@ export default class RoomsView extends Component{
         return (
             <Stage width={1500} height={600}>
                 <Layer>
-                    <Shape sceneFunc={this.shapeSceneFuncR1} fill={this.props.colors[0]} stroke="black" opacity={this.props.opacity[0]} strokeWidth={4} onClick={(e) => this.props.onClick(1, e)}/>
-                    <Shape sceneFunc={this.shapeSceneFuncR2} fill={this.props.colors[1]} stroke="black" opacity={this.props.opacity[1]} strokeWidth={4} onClick={(e) => this.props.onClick(2, e)}/>
-                    <Shape sceneFunc={this.shapeSceneFuncR3} fill={this.props.colors[2]} stroke="black" opacity={this.props.opacity[2]} strokeWidth={4} onClick={(e) => this.props.onClick(3, e)}/>
-                    <Shape sceneFunc={this.shapeSceneFuncR4} fill={this.props.colors[3]} stroke="black" opacity={this.props.opacity[3]} strokeWidth={4} onClick={(e) => this.props.onClick(4, e)}/>
-                    <Shape sceneFunc={this.shapeSceneFuncR5} fill={this.props.colors[4]} stroke="black" opacity={this.props.opacity[4]} strokeWidth={4} onClick={(e) => this.props.onClick(5, e)}/>
-                    <Shape sceneFunc={this.shapeSceneFuncR6} fill={this.props.colors[5]} stroke="black" opacity={this.props.opacity[5]} strokeWidth={4} onClick={(e) => this.props.onClick(6, e)}/>
+                    <Shape sceneFunc={this.shapeSceneFuncR1} fill={this.props.colors[0]} stroke="black" strokeWidth={4} onClick={(e) => this.props.onClick(1, e)}/>
+                    <Shape sceneFunc={this.shapeSceneFuncR2} fill={this.props.colors[1]} stroke="black" strokeWidth={4} onClick={(e) => this.props.onClick(2, e)}/>
+                    <Shape sceneFunc={this.shapeSceneFuncR3} fill={this.props.colors[2]} stroke="black" strokeWidth={4} onClick={(e) => this.props.onClick(3, e)}/>
+                    <Shape sceneFunc={this.shapeSceneFuncR4} fill={this.props.colors[3]} stroke="black" strokeWidth={4} onClick={(e) => this.props.onClick(4, e)}/>
+                    <Shape sceneFunc={this.shapeSceneFuncR5} fill={this.props.colors[4]} stroke="black" strokeWidth={4} onClick={(e) => this.props.onClick(5, e)}/>
+                    <Shape sceneFunc={this.shapeSceneFuncR6} fill={this.props.colors[5]} stroke="black" strokeWidth={4} onClick={(e) => this.props.onClick(6, e)}/>
                 </Layer>
             </Stage>
         );

@@ -71,7 +71,7 @@ class Registration extends Component
     {
         this.context.router.history.push({
             pathname: '/floor',
-            state: { dateStart : this.state.checkInDate, dateStop : this.state.checkOutDate}
+            state: { dateStart : this.state.dateStart, dateStop : this.state.dateStop}
         });
     }
 

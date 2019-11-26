@@ -33,56 +33,55 @@ class FloorPlan extends Component{
 
         dialogVisible : false,
         visibleRoomId : 0,
-        numberOfAdults: 0,
-        numberOfChildren: 0,
+        numberOfPersons: 0,
 
         rooms : [
-            {originalColor: "#27A5BE",
+            {number: 1,
+             originalColor: "#27A5BE",
              color: "#27A5BE",
-             opacity: 0.3,
              description: "pokój 1 z widokiem na Pana Władka co ma gęsi dwa stadka",
-             numberOfAdults: 0,
-             numberOfChildren: 0,
-             selected: false},
-            {originalColor: "#45BFD7",
+             numberOfPersons: 0,
+             selected: false,
+             price: 0},
+            {number: 2,
+             originalColor: "#45BFD7",
              color: "#45BFD7",
-             opacity: 0.3,
              description: "pokój 2 z widokiem na kluski oraz kilka pierogów ruskich",
-             numberOfAdults: 0,
-             numberOfChildren: 0,
-             selected: false},
-            {originalColor: "#70CDDF",
+             numberOfPersons: 0,
+             selected: false,
+             price: 0},
+            {number: 3,
+             originalColor: "#70CDDF",
              color: "#70CDDF",
-             opacity: 0.3,
              description: "pokój 3 z możliwością spłodzenia dzieci",
-             numberOfAdults: 0,
-             numberOfChildren: 0,
-             selected: false},
-            {originalColor: "#89D6E5",color: "#89D6E5",
-             opacity: 0.3,
+             numberOfPersons: 0,
+             selected: false,
+             price: 0},
+            {number: 4,
+             originalColor: "#89D6E5",color: "#89D6E5",
              description: "pokój 4 Karol tu mieszka i można też spotkać Leszka",
-             numberOfAdults: 0,
-             numberOfChildren: 0,
-             selected: false},
-            {originalColor: "#9EDDE9",
+             numberOfPersons: 0,
+             selected: false,
+             price: 0},
+            {number: 5,
+             originalColor: "#9EDDE9",
              color: "#9EDDE9",
-             opacity: 0.3,
              description: "pokój angielskiej królowej co właśnie umyła głowę",
-             numberOfAdults: 0,
-             numberOfChildren: 0,
-             selected: false},
-            {originalColor: "#9EDDE9",
+             numberOfPersons: 0,
+             selected: false,
+             price: 0},
+            {number: 6,
+             originalColor: "#9EDDE9",
              color: "#9EDDE9",
-             opacity: 0.3,
              description: "do tego pokoju przyszła Pani Hanka, co ma urwane ucho od dzbanka",
-             numberOfAdults: 0,
-             numberOfChildren: 0,
-             selected: false}
+             numberOfPersons: 0,
+             selected: false,
+             price: 0}
         ]
-
     };
 
     onClick = (id, e) => {
+
         /*
         if(this.state.colors[id - 1] === "#CC0000")
             enableReservation = false;*/
@@ -92,13 +91,10 @@ class FloorPlan extends Component{
         if(newRooms[id - 1].selected === true) {
            newRooms[id - 1].selected = false;
            newRooms[id - 1].color =  newRooms[id - 1].originalColor ;
-           newRooms[id - 1].opacity = 0.3;
            this.setState({rooms : newRooms});
            return;
         }
-        else{
-            newRooms[id - 1].selected = true;
-        }
+        else{newRooms[id - 1].selected = true;}
         this.setState({rooms : newRooms, dialogVisible: true, visibleRoomId: id - 1});
     }
 
@@ -106,42 +102,79 @@ class FloorPlan extends Component{
         console.log("reservation on click");
     }
 
-    onPlusAdult = () => {
-        this.setState({numberOfAdults : this.state.numberOfAdults + 1})
+    onPlusPersons = () => {
+
+        let newNumber = this.state.numberOfPersons < this.state.rooms[this.state.visibleRoomId].numberOfPersons ?
+                        this.state.numberOfPersons + 1 : this.state.numberOfPersons;
+
+        this.setState({numberOfPersons : newNumber})
     }
 
-    onMinusAdult = () => {
+    onMinusPersons = () => {
         this.setState({
-                numberOfAdults: this.state.numberOfAdults - 1 < 0 ?
-                this.state.numberOfAdults :
-                this.state.numberOfAdults - 1
-        },()=>{if (this.state.numberOfAdults === 0)
-                      this.setState({numberOfChildren: 0})})
-    }
-
-    onPlusChild = ()=> {
-        this.setState({numberOfChildren : this.state.numberOfChildren + 1})
-    }
-
-    onMinusChild = () => {
-        this.setState({numberOfChildren : this.state.numberOfChildren - 1 < 0 ?
-                                               this.state.numberOfChildren :
-                                               this.state.numberOfChildren - 1})
+                numberOfPersons: this.state.numberOfPersons - 1 < 0 ?
+                this.state.numberOfPersons :
+                this.state.numberOfPersons - 1
+        })
     }
 
      onMakeReservation = ()=> {
 
          let newRooms = this.state.rooms;
          newRooms[this.state.visibleRoomId].color = "#11DD11";
-         newRooms[this.state.visibleRoomId].opacity = 1;
+         newRooms[this.state.visibleRoomId].numberOfPersons = this.state.numberOfPersons;
+         newRooms[this.state.visibleRoomId].selected = true;
 
          this.setState({rooms:newRooms, dialogVisible: false,
-                             numberOfAdults : 0, numberOfChildren : 0});
+             numberOfPersons : 0});
      }
 
     onHide()
     {
-       this.setState({dialogVisible: false, numberOfAdults : 0, numberOfChildren : 0});
+        let newRooms = this.state.rooms;
+        newRooms[this.state.visibleRoomId].selected = false;
+
+        this.setState({dialogVisible: false, numberOfPersons : 0});
+    }
+
+    componentDidMount()
+    {
+        let newRooms = this.state.rooms;
+
+        axios.get('http://localhost:8989/rooms')
+            .then( rooms => {
+
+                console.log(rooms);
+
+                rooms.data.forEach((room) => {
+                        for (let index = 0; index < newRooms.length; index++) {
+                            if (newRooms[index].number === room.number) {
+                                newRooms[index].numberOfPersons = room.numberOfBeds;
+                                newRooms[index].price = room.price;
+                                break;
+                            }
+                        }
+                    }
+                );
+            }
+        )
+
+        console.log('http://localhost:8989/reservations?fromDate=' + this.props.location.state.dateStart +
+            '&toDate=' + this.props.location.state.dateStop)
+
+        axios.get('http://localhost:8989/reservations?fromDate=' + this.props.location.state.dateStart +
+            '&toDate=' + this.props.location.state.dateStop)
+            .then(reservations => {
+
+                reservations.data.forEach((res) => {
+                        console.log(res.room.number);
+
+                        newRooms[res.room.number - 1].color = "#CC0000";
+                    }
+                );
+            })
+
+        this.setState({rooms: newRooms});
     }
 
     render(){
@@ -149,7 +182,7 @@ class FloorPlan extends Component{
         const footer = (
             <div>
                 <Button label="Rezerwuj" icon="pi pi-check" onClick={this.onMakeReservation}
-                        disabled={this.state.numberOfAdults === 0 ? true : false}/>
+                        disabled={this.state.numberOfPersons === 0 ? true : false}/>
                 <Button label="Zamknij" icon="pi pi-check" onClick={this.onHide} />
             </div>
         );
@@ -157,7 +190,6 @@ class FloorPlan extends Component{
         return (
             <div className="section-1">
                 <RoomsView colors={this.state.rooms.map((room)=> room.color)}
-                           opacity={this.state.rooms.map((room)=> room.opacity)}
                            onClick={this.onClick}/>
                 <h1 visible="false">WYBRANO POKOJE {this.state.selectedRooms}</h1>
                 <div className="content-section implementation">
@@ -167,14 +199,11 @@ class FloorPlan extends Component{
                             <br/>
                             <br/>
                             <br/>
-                            <h5>DOROSLI</h5>
-                            <Button label="+" onClick={this.onPlusAdult}/>
-                            <InputText value={this.state.numberOfAdults} disabled={true}/>
-                            <Button label="-" onClick={this.onMinusAdult}/>
-                            <h5>DZIECI</h5>
-                            <Button label="+" onClick={this.onPlusChild} disabled={this.state.numberOfAdults === 0 ? true : false}/>
-                            <InputText value={this.state.numberOfChildren} disabled={true}/>
-                            <Button label="-" onClick={this.onMinusChild} disabled={this.state.numberOfAdults === 0 ? true : false}/>
+                            <h5>OSOBY</h5>
+                            <Button label="+" onClick={this.onPlusPersons}/>
+                            <InputText value={this.state.numberOfPersons} disabled={true}/>
+                            <Button label="-" onClick={this.onMinusPersons}/>
+                            <h5>CENA {this.state.rooms[this.state.visibleRoomId].price * this.state.numberOfPersons}</h5>
                     </Dialog>
                 </div>
             </div>
