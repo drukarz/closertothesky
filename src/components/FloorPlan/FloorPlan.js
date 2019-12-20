@@ -1,240 +1,239 @@
 import React, { Component } from 'react';
-
-import {Dialog} from 'primereact/dialog';
 import {Button} from "primereact/button";
-import {InputText} from "primereact/inputtext";
-
 import axios from "axios/index";
-
-import R1 from '../../assets/images/gallery/rooms/R1.jpeg';
-import R2 from '../../assets/images/gallery/rooms/R2.jpeg';
-import R3 from '../../assets/images/gallery/rooms/R3.jpeg';
-import R5 from '../../assets/images/gallery/rooms/R4.jpeg';
-import R4 from '../../assets/images/gallery/rooms/R4.jpeg';
-import R6 from '../../assets/images/gallery/rooms/R6.jpeg';
 import RoomsView from "./RoomsView";
+import SingleRoomView from "./SingleRoomView";
+import ReservationConfirmationView from "./ReservationConfirmationView";
 
-class FloorPlan extends Component{
+export default class FloorPlan extends Component{
 
     constructor(props) {
         super(props);
 
-        this.onClick = this.onClick.bind(this);
-        this.reservationOnClick = this.reservationOnClick.bind(this);
-        this.onHide = this.onHide.bind(this);
+        this.state = {
+            visibleRoomId : 0,
+            numberOfPersons: 0,
+            numberOfVege: 0,
+            activeReservation: false,
+            rooms : [
+                {number: 1, originalColor: "#27A5BE", color: "#27A5BE", numberOfPersons: 0, numberOfVege: 0, price: []},
+                {number: 2, originalColor: "#45BFD7", color: "#45BFD7", numberOfPersons: 0, numberOfVege: 0, price: []},
+                {number: 3, originalColor: "#70CDDF", color: "#70CDDF", numberOfPersons: 0, numberOfVege: 0, price: []},
+                {number: 4, originalColor: "#89D6E5", color: "#89D6E5", numberOfPersons: 0, numberOfVege: 0, price: []},
+                {number: 5, originalColor: "#9EDDE9", color: "#9EDDE9", numberOfPersons: 0, numberOfVege: 0, price: []},
+                {number: 6, originalColor: "#9EDDE9", color: "#9EDDE9", numberOfPersons: 0, numberOfVege: 0, price: []},
+                {number: 7, originalColor: "#27A5BE", color: "#27A5BE", numberOfPersons: 0, numberOfVege: 0, price: []},
+                {number: 8, originalColor: "#45BFD7", color: "#45BFD7", numberOfPersons: 0, numberOfVege: 0, price: []},
+                {number: 9, originalColor: "#70CDDF", color: "#70CDDF", numberOfPersons: 0, numberOfVege: 0, price: []},
+                {number: 10, originalColor: "#89D6E5", color: "#89D6E5", numberOfPersons: 0, numberOfVege: 0, price: []},
+                {number: 11, originalColor: "#9EDDE9", color: "#9EDDE9", numberOfPersons: 0, numberOfVege: 0, price: []},
+                {number: 12, originalColor: "#9EDDE9", color: "#9EDDE9", numberOfPersons: 0, numberOfVege: 0, price: []}
+            ],
+
+            reservedRooms : [],
+            viewMode: 'roomsView',
+            message: 'wybierz pokój'
+        };
     }
-
-    state = {
-            r1images : ['R1', 'R2', 'R3'].map( (name, index) => {
-                return <img key={index}
-                            className="gallery-img-space" alt=""
-                            src={require(`../../assets/images/gallery/rooms/${name}.jpeg`)} />
-            }),
-
-        dialogVisible : false,
-        visibleRoomId : 0,
-        numberOfPersons: 0,
-
-        rooms : [
-            {number: 1,
-             originalColor: "#27A5BE",
-             color: "#27A5BE",
-             description: "pokój 1 z widokiem na Pana Władka co ma gęsi dwa stadka",
-             numberOfPersons: 0,
-             selected: false,
-             price: 0},
-            {number: 2,
-             originalColor: "#45BFD7",
-             color: "#45BFD7",
-             description: "pokój 2 z widokiem na kluski oraz kilka pierogów ruskich",
-             numberOfPersons: 0,
-             selected: false,
-             price: 0},
-            {number: 3,
-             originalColor: "#70CDDF",
-             color: "#70CDDF",
-             description: "pokój 3 z możliwością spłodzenia dzieci",
-             numberOfPersons: 0,
-             selected: false,
-             price: 0},
-            {number: 4,
-             originalColor: "#89D6E5",color: "#89D6E5",
-             description: "pokój 4 Karol tu mieszka i można też spotkać Leszka",
-             numberOfPersons: 0,
-             selected: false,
-             price: 0},
-            {number: 5,
-             originalColor: "#9EDDE9",
-             color: "#9EDDE9",
-             description: "pokój angielskiej królowej co właśnie umyła głowę",
-             numberOfPersons: 0,
-             selected: false,
-             price: 0},
-            {number: 6,
-             originalColor: "#9EDDE9",
-             color: "#9EDDE9",
-             description: "do tego pokoju przyszła Pani Hanka, co ma urwane ucho od dzbanka",
-             numberOfPersons: 0,
-             selected: false,
-             price: 0}
-        ]
-    };
 
     onClick = (id, e) => {
 
-        /*
-        if(this.state.colors[id - 1] === "#CC0000")
-            enableReservation = false;*/
-
         let newRooms = this.state.rooms;
+        let activeReservation = false;
+        let numberOfSelectedRooms = 0;
+        let message = "";
 
-        if(newRooms[id - 1].selected === true) {
-           newRooms[id - 1].selected = false;
-           newRooms[id - 1].color =  newRooms[id - 1].originalColor ;
-           this.setState({rooms : newRooms});
-           return;
-        }
-        else{newRooms[id - 1].selected = true;}
-        this.setState({rooms : newRooms, dialogVisible: true, visibleRoomId: id - 1});
-    }
+        newRooms[id - 1].selected = !newRooms[id - 1].selected;
 
-    reservationOnClick = (e) => {
-        console.log("reservation on click");
+        newRooms.forEach((room) => {
+            if(room.selected === true) {
+                activeReservation = true;
+                numberOfSelectedRooms = numberOfSelectedRooms + 1;
+            }
+        })
+
+        if(newRooms[id - 1].selected === false)
+            newRooms[id - 1].color =  newRooms[id - 1].originalColor;
+        else
+            this.setState({visibleRoomId: id - 1, viewMode: 'singleRoomView'});
+
+        if(numberOfSelectedRooms === 0)
+            message = 'wybierz pokój';
+
+        if(numberOfSelectedRooms === 1)
+            message = 'wybrano 1 pokój';
+
+        if(numberOfSelectedRooms > 1 && numberOfSelectedRooms < 5)
+            message = 'wybrano ' + numberOfSelectedRooms + ' pokoje';
+
+        if(numberOfSelectedRooms > 4)
+            message = 'wybrano ' + numberOfSelectedRooms + ' pokoi';
+
+        this.setState({rooms : newRooms, activeReservation : activeReservation, message: message});
+
     }
 
     onPlusPersons = () => {
 
-        let newNumber = this.state.numberOfPersons < this.state.rooms[this.state.visibleRoomId].numberOfPersons ?
+        let newNumber = this.state.numberOfPersons < this.state.rooms[this.state.visibleRoomId].numberOfBeds ?
                         this.state.numberOfPersons + 1 : this.state.numberOfPersons;
 
-        this.setState({numberOfPersons : newNumber})
+        this.setState({numberOfPersons : newNumber, numberOfVege : 0})
     }
 
     onMinusPersons = () => {
-        this.setState({
-                numberOfPersons: this.state.numberOfPersons - 1 < 0 ?
-                this.state.numberOfPersons :
-                this.state.numberOfPersons - 1
-        })
+        this.setState({ numberOfPersons: this.state.numberOfPersons - 1 < 0 ?
+                this.state.numberOfPersons : this.state.numberOfPersons - 1, numberOfVege : 0})
     }
 
-     onMakeReservation = ()=> {
+    onPlusVege = () => {
+        let newNumber = this.state.numberOfVege < this.state.numberOfPersons ?
+            this.state.numberOfVege + 1 : this.state.numberOfVege;
 
-         let newRooms = this.state.rooms;
-         newRooms[this.state.visibleRoomId].color = "#11DD11";
-         newRooms[this.state.visibleRoomId].numberOfPersons = this.state.numberOfPersons;
-         newRooms[this.state.visibleRoomId].selected = true;
+        this.setState({numberOfVege : newNumber})
+    }
 
-         this.setState({rooms:newRooms, dialogVisible: false,
-             numberOfPersons : 0});
-     }
+    onMinusVege = () => {
+        this.setState({ numberOfVege: this.state.numberOfVege - 1 < 0 ?
+                this.state.numberOfVege : this.state.numberOfVege - 1})
+    }
 
-    onHide()
-    {
+    onHideMakeReservation = ()=> {
+
         let newRooms = this.state.rooms;
         newRooms[this.state.visibleRoomId].selected = false;
-
-        this.setState({dialogVisible: false, numberOfPersons : 0});
+        this.setState({numberOfPersons : 0, numberOfVege : 0, viewMode: 'roomsView'});
     }
 
-    componentDidMount()
-    {
+    onMakeReservation = ()=> {
         let newRooms = this.state.rooms;
+        newRooms[this.state.visibleRoomId].color = "#11DD11";
+        newRooms[this.state.visibleRoomId].numberOfPersons = this.state.numberOfPersons;
+        newRooms[this.state.visibleRoomId].numberOfVege = this.state.numberOfVege;
+        newRooms[this.state.visibleRoomId].selected = true;
+        this.setState({rooms:newRooms, numberOfPersons : 0, numberOfVege : 0, activeReservation : true,
+                       viewMode: 'roomsView'});
+    }
+
+    onHideReservationConfirmation = ()=> {
+        this.setState({viewMode: 'roomsView'});
+        this.props.onHide();
+    }
+
+    onConfirmReservation = ()=> {
+
+        let reservedRooms = [];
+        this.state.rooms.forEach((room) => {
+            if(room.selected === true){
+                reservedRooms.push(room);
+            }
+        })
+
+        this.setState({viewMode: 'confirmationView', reservedRooms : reservedRooms});
+    }
+
+    componentWillReceiveProps(nextProps, nextContext) {
+
+        // little trick - when newly appear on the screen reset to rooms view
+
+        let newRooms = this.state.rooms;
+
+        newRooms.forEach((room) => {
+            room.selected = false;
+            room.color = room.originalColor;
+        })
+
+        this.setState({viewMode: 'roomsView',
+                       reservedRooms : [],
+                       rooms: newRooms,
+                       message: 'wybierz pokój'});
 
         axios.get('http://localhost:8989/rooms')
             .then( rooms => {
-
-                console.log(rooms);
-
-                rooms.data.forEach((room) => {
-                        for (let index = 0; index < newRooms.length; index++) {
-                            if (newRooms[index].number === room.number) {
-                                newRooms[index].numberOfPersons = room.numberOfBeds;
-                                newRooms[index].price = room.price;
-                                break;
+                    rooms.data.forEach((room) => {
+                            for (let index = 0; index < newRooms.length; index++) {
+                                if (newRooms[index].number === room.number) {
+                                    newRooms[index].numberOfBeds = room.numberOfBeds;
+                                    newRooms[index].description = room.description;
+                                    newRooms[index].price = [];
+                                    newRooms[index].price[0] = room.price1;
+                                    newRooms[index].price[1] = room.price2;
+                                    newRooms[index].price[2] = room.price3;
+                                    newRooms[index].price[3] = room.price4;
+                                    break;
+                                }
                             }
                         }
-                    }
-                );
-            }
-        )
+                    );
+                }
+            )
 
-        console.log('http://localhost:8989/reservations?fromDate=' + this.props.location.state.dateStart +
-            '&toDate=' + this.props.location.state.dateStop)
-
-        axios.get('http://localhost:8989/reservations?fromDate=' + this.props.location.state.dateStart +
-            '&toDate=' + this.props.location.state.dateStop)
+        axios.get('http://localhost:8989/reservations?fromDate=' + this.props.dateStart +
+            '&toDate=' + this.props.dateStop)
             .then(reservations => {
-
                 reservations.data.forEach((res) => {
-                        console.log(res.room.number);
-
                         newRooms[res.room.number - 1].color = "#CC0000";
                     }
                 );
-            })
 
-        this.setState({rooms: newRooms});
+                this.setState({rooms: newRooms});
+            })
     }
 
     render(){
 
-        const footer = (
-            <div>
-                <Button label="Rezerwuj" icon="pi pi-check" onClick={this.onMakeReservation}
-                        disabled={this.state.numberOfPersons === 0 ? true : false}/>
-                <Button label="Zamknij" icon="pi pi-check" onClick={this.onHide} />
-            </div>
-        );
-
         return (
-            <div className="section-1">
-                <RoomsView colors={this.state.rooms.map((room)=> room.color)}
-                           onClick={this.onClick}/>
-                <h1 visible="false">WYBRANO POKOJE {this.state.selectedRooms}</h1>
-                <div className="content-section implementation">
-                    <Dialog header={this.state.rooms[this.state.visibleRoomId].description} visible={this.state.dialogVisible}
-                            footer={footer} onHide={this.onHide} modal={true} maximizable>
-                            {this.state.r1images}
-                            <br/>
-                            <br/>
-                            <br/>
-                            <h5>OSOBY</h5>
-                            <Button label="+" onClick={this.onPlusPersons}/>
-                            <InputText value={this.state.numberOfPersons} disabled={true}/>
-                            <Button label="-" onClick={this.onMinusPersons}/>
-                            <h5>CENA {this.state.rooms[this.state.visibleRoomId].price * this.state.numberOfPersons}</h5>
-                    </Dialog>
+            <div>
+                {this.state.viewMode === 'roomsView' &&
+                    <RoomsView colors={this.state.rooms.map((room) => room.color)}
+                               onClick={this.onClick}/>
+
+                }
+                <div className="img-space-around">
+                    {this.state.viewMode === 'roomsView' &&
+                        <h1 className="offer-text">{this.state.message} </h1>
+                    }
+                    {this.state.viewMode === 'roomsView' &&
+                        <Button style={this.state.activeReservation ? {visibility: "visible",
+                                                                       width: "300px",
+                                                                       height: "50px"} :
+                                                                      {visibility: "hidden"}}
+                                label="Zatwierdź" icon="pi pi-check"
+                                onClick={this.onConfirmReservation}/>
+                    }
                 </div>
+                {this.state.viewMode === 'singleRoomView' &&
+                    <SingleRoomView
+                     onPlusPersons={this.onPlusPersons}
+                     numberOfPersons={this.state.numberOfPersons}
+                     onMinusPersons={this.onMinusPersons}
+                     onPlusVege={this.onPlusVege}
+                     numberOfVege={this.state.numberOfVege}
+                     onMinusVege={this.onMinusVege}
+                     rooms={this.state.rooms}
+                     visibleRoomId={this.state.visibleRoomId}
+                     onMakeReservation={this.onMakeReservation}
+                     onHideMakeReservation={this.onHideMakeReservation}/>
+                }
+                {this.state.viewMode === 'confirmationView' &&
+                    <ReservationConfirmationView
+                     reservedRooms={this.state.reservedRooms}
+                     dateStart={this.props.dateStart}
+                     dateStop={this.props.dateStop}
+                     onHideReservationConfirmation={this.onHideReservationConfirmation}/>
+                }
             </div>
         );
     }
 }
 
-export default FloorPlan;
 
 
 
 
-/*
-componentDidMount()
-{
-    /!*console.log('http://localhost:8989/reservations?fromDate=' + this.props.location.state.dateStart +
-        '&toDate=' + this.props.location.state.dateStop);
 
-    axios.get('http://localhost:8989/reservations?fromDate=' + this.props.location.state.dateStart +
-                   '&toDate=' + this.props.location.state.dateStop)
-        .then(reservations => {
 
-            const newColors = [...this.state.colors];
 
-            reservations.data.forEach((res) => {
-                    console.log(res.room.number);
-                    newColors[res.room.number - 1] = "#CC0000";
-                }
-            );
 
-            this.setState({colors : newColors})
-        })*!/
-}
-*/
+
+

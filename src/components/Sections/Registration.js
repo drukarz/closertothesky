@@ -2,13 +2,12 @@ import React, { Component } from 'react';
 import {Calendar} from "primereact/calendar";
 import {Button} from "primereact/button";
 import PropTypes from 'prop-types';
+import {InputText} from "primereact/inputtext";
+import {Dialog} from "primereact/dialog";
+import FloorPlan from "../FloorPlan/FloorPlan";
 
 class Registration extends Component
 {
-    static contextTypes = {
-        router: PropTypes.object
-    };
-
     constructor(props)
     {
         super(props);
@@ -34,6 +33,7 @@ class Registration extends Component
             maxDate: maxDate,
             enabledDateTo: true,
             checkButtonDisabled: true,
+            dialogVisible: false,
         };
 
         this.reservationFromOnClick = this.reservationFromOnClick.bind(this);
@@ -43,8 +43,15 @@ class Registration extends Component
 
     reservationFromOnClick(event)
     {
+        if(event.value === undefined)
+            return;
+
+        let date = new Date(event.value);
+
+        date.setHours(date.getHours() + 24);
+
         this.setState({enabledDateTo: true});
-        this.setState({dateStart: event.value});
+        this.setState({dateStart: date.toISOString().substring(0, 10)});
         this.setState({minDateTo: event.value});
         this.setState({dateStop: null})
         this.setState({checkButtonDisabled: true});
@@ -63,31 +70,58 @@ class Registration extends Component
             return;
         }
 
+        let date = new Date(event.value);
+        date.setHours(date.getHours() + 24);
+
         this.setState({checkButtonDisabled: false});
-        this.setState({dateStop: event.value})
+        this.setState({dateStop: date.toISOString().substring(0, 10)})
     }
 
     makeReservationOnClick(event)
     {
-        this.context.router.history.push({
-            pathname: '/floor',
-            state: { dateStart : this.state.dateStart, dateStop : this.state.dateStop}
-        });
+        this.setState({dialogVisible : true});
+    }
+
+    onHide = () => {
+
+        this.setState({dialogVisible : false});
     }
 
     render()
     {
         return(
+                <div>
+                    <br/>
+                    <h3>
+                        przyjazd
+                    </h3>
+                    <Calendar minDate={this.state.minDateFrom}
+                              maxDate={this.state.maxDate}
+                              value={this.state.dateStart}
+                              onChange={this.reservationFromOnClick} showIcon={true} />
+                    <h3>
+                        wyjazd
+                    </h3>
+                    <Calendar minDate={this.state.minDateTo}
+                              maxDate={this.state.maxDate}
+                              value={this.state.dateStop}
+                              onChange={this.reservationToOnClick}
+                              showIcon={true} disabled={this.state.enabledDateTo}/>
+                    <br/>
+                    <br/>
+                    <br/>
+                    <Button className="button-size"
+                            label="sprawdź dostępność" disabled={this.state.checkButtonDisabled} onClick={this.makeReservationOnClick}/>
+                <Dialog
+                        header={"REZERWACJA POKOI OD " + this.state.dateStart + " DO " + this.state.dateStop}
+                        visible={this.state.dialogVisible}
+                        style={{width: '80vw'}}
+                        footer="" onHide={this.onHide}
+                        modal={true}
+                        maximizable>
+                    <FloorPlan dateStart={this.state.dateStart} dateStop={this.state.dateStop} onHide = {this.onHide}/>
+                </Dialog>
 
-            <div className="reg-item">
-                przyjazd
-                <Calendar minDate={this.state.minDateFrom} maxDate={this.state.maxDate}
-                          value={this.state.dateStart} onChange={this.reservationFromOnClick} showIcon={true} />
-                wyjazd
-                <Calendar minDate={this.state.minDateTo} maxDate={this.state.maxDate}
-                          value={this.state.dateStop} onChange={this.reservationToOnClick}
-                          showIcon={true} disabled={this.state.enabledDateTo}/>
-                <Button label="sprawdź dostępność" disabled={this.state.checkButtonDisabled} onClick={this.makeReservationOnClick}/>
             </div>
         );
     }

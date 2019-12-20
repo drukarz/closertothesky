@@ -3,194 +3,232 @@ import { Stage, Layer, Shape, Rect, Text} from 'react-konva';
 
 export default class RoomsView extends Component{
 
-    Left0 = 1;
-    Left90 = 2;
-    Left180 = 3;
-    Left270 = 4;
-    Right0 = 5;
-    Right90 = 6;
-    Right270 = 7;
-
-    MinX = 20;
-    MinY = 20;
-    MaxX = 720;
-    MaxY = 510;
-
-    TallToiletLength = 140;
-    TallToiletWidth = 60;
-    Room1Length = 220;
-    Room1WidthDownLongWall = 200;
-    Room1IndentationLength = 60;
-    Room1IndentationWidth = 80;
-    Room1WidthDown = 360;
-    Room1WidthUp = 280;
-    Room2WidthUp = 280;
-    Room2LengthRight = 160;
-    Room5Width = 250;
-    Room6Width = 260;
-    ToiletLength = 120;
-    TallToiletWidth = 80;
-    DoorWidth=40;
-    HallLength = 60;
-    DoorFromWall=10;
+    Level1=220;
+    MinY = 30;
+    MinX = 95;
+    Level2 = 310;
+    Level3 = 520;
+    ShortWallLength = 60;
+    Break = 10;
 
     constructor(props){
         super(props);
-
-        this.shapeSceneFuncR1 = this.shapeSceneFuncR1.bind(this);
-        this.shapeSceneFuncR2 = this.shapeSceneFuncR2.bind(this);
-        this.shapeSceneFuncR3 = this.shapeSceneFuncR3.bind(this);
-        this.shapeSceneFuncR4 = this.shapeSceneFuncR4.bind(this);
-        this.shapeSceneFuncR5 = this.shapeSceneFuncR5.bind(this);
-        this.shapeSceneFuncR6 = this.shapeSceneFuncR6.bind(this);
-
-        this.drawDoor = this.drawDoor.bind(this);
-        this.drawWallRoom12 = this.drawWallRoom12.bind(this);
-        this.drawWallRoom34 = this.drawWallRoom34.bind(this);
     }
 
-    drawDoor(context, xStart, yStart, width, orientation){
-
-        if(orientation === this.Left0){
-            context.lineTo(xStart, yStart - width);
-            context.quadraticCurveTo(xStart + width, yStart - width, xStart + width, yStart);
-        }
-        if(orientation === this.Left90){
-            context.lineTo(xStart - width, yStart);
-            context.quadraticCurveTo(xStart - width, yStart - width, xStart, yStart - width);
-        }
-        if(orientation === this.Left180){
-            context.lineTo(xStart, yStart + width);
-            context.quadraticCurveTo(xStart - width, yStart + width, xStart - width, yStart);
-        }
-        if(orientation === this.Left270){
-            context.lineTo(xStart + width, yStart);
-            context.quadraticCurveTo(xStart + width, yStart + width, xStart, yStart + width);
-        }
-        if(orientation === this.Right0){
-            context.lineTo(xStart, yStart - width);
-            context.quadraticCurveTo(xStart - width, yStart - width, xStart - width, yStart);
-        }
-        if(orientation === this.Right90){
-            context.lineTo(xStart - width, yStart);
-            context.quadraticCurveTo(xStart - width, yStart + width, xStart, yStart + width);
-        }
-        if(orientation === this.Right270){
-            context.lineTo(xStart + width, yStart);
-            context.quadraticCurveTo(xStart + width, yStart - width, xStart, yStart - width);
-        }
-    }
-
-    drawWallRoom12(context){
-        context.lineTo(this.Room1WidthDown,this.Room1Length);
-        context.lineTo(this.Room1WidthDown,this.Room1Length- this.TallToiletLength);
-        context.lineTo(this.Room1WidthUp,this.Room1Length - this.TallToiletLength);
-        context.lineTo(this.Room1WidthUp,this.MinY);
-    }
-    drawWallRoom34(context) {
-        context.lineTo(this.MaxX - this.TallToiletWidth, this.Room1Length + this.TallToiletLength);
-        context.lineTo(this.MaxX - this.TallToiletWidth, this.Room1Length);
-        context.lineTo(this.Room1WidthUp + this.Room2WidthUp, this.Room1Length);
-    }
-    shapeSceneFuncR1(context, shape){
+    beginRoom = (context, x, y ) => {
         context.beginPath();
-        context.moveTo(this.MinX,this.MinY);
-        context.lineTo(this.MinX,this.Room1Length);
-        context.lineTo(this.Room1WidthDownLongWall,this.Room1Length);
-        let x = this.Room1WidthDownLongWall;
-        let y = this.Room1Length - this.Room1IndentationLength;
+        context.moveTo(x, y);
+    }
+
+    finishRoom = (context, shape, x, y ) => {
         context.lineTo(x, y);
-        this.drawDoor(context,x,y,this.DoorWidth,this.Left0);
-        context.lineTo(this.Room1WidthDownLongWall + this.Room1IndentationWidth,
-            this.Room1Length - this.Room1IndentationLength);
-        context.lineTo(this.Room1WidthDownLongWall + this.Room1IndentationWidth, this.Room1Length);
-        this.drawWallRoom12(context);
         context.closePath();
         context.fillStrokeShape(shape);
     }
-    shapeSceneFuncR2(context, shape){
-        let doorFromRightWall = 40;
-        context.beginPath();
-        context.moveTo(this.Room1WidthUp,this.MinY);
-        context.lineTo(this.Room1WidthUp + this.Room2WidthUp,this.MinY);
-        context.lineTo(this.Room1WidthUp + this.Room2WidthUp,this.Room2LengthRight);
-        let x = this.Room1WidthUp + this.Room2WidthUp - doorFromRightWall;
-        let y = this.Room2LengthRight
-        context.lineTo(x,y);
-        this.drawDoor(context,x,y,this.DoorWidth,this.Right0);
-        context.lineTo(x - this.TallToiletWidth,y);
-        context.lineTo(x - this.TallToiletWidth,this.Room1Length);
-        this.drawWallRoom12(context);
-        context.closePath();
-        context.fillStrokeShape(shape);
-    }
-    shapeSceneFuncR3(context, shape){
-        context.beginPath();
-        context.moveTo(this.Room1WidthUp + this.Room2WidthUp,this.MinY);
-        context.lineTo(this.MaxX,this.MinY);
-        context.lineTo(this.MaxX,this.Room1Length + this.TallToiletLength);
-        this.drawWallRoom34(context);
-        let x = this.Room1WidthUp + this.Room2WidthUp;
-        let y = this.Room1Length - this.DoorFromWall
-        context.lineTo(x,y);
-        this.drawDoor(context,x,y,this.DoorWidth, this.Right270);
-        context.closePath();
-        context.fillStrokeShape(shape);
-    }
-    shapeSceneFuncR4(context, shape){
-        context.beginPath();
-        context.moveTo(this.MaxX,this.Room1Length + this.TallToiletLength);
-        this.drawWallRoom34(context);
-        context.lineTo(this.Room1WidthUp + this.Room2WidthUp,this.Room1Length + this.HallLength);
-        let x = this.Room1WidthUp + this.Room2WidthUp - this.DoorFromWall;
-        let y = this.Room1Length + this.HallLength;
-        context.lineTo(x, y);
-        this.drawDoor(context, x, y, this.DoorWidth, this.Right0);
-        context.lineTo(x - this.DoorWidth - this.DoorFromWall,y);
-        context.lineTo(x - this.DoorWidth - this.DoorFromWall,this.MaxY);
-        context.lineTo(this.MaxX,this.MaxY);
-        context.closePath();
-        context.fillStrokeShape(shape);
-    }
-    shapeSceneFuncR5(context, shape) {
-        context.beginPath();
-        context.moveTo(2 * this.Room5Width, this.Room1Length + this.HallLength);
-        let x = 2 * this.Room5Width - this.DoorFromWall;
-        let y = this.Room1Length + this.HallLength;
-        context.lineTo(x, y);
-        this.drawDoor(context,x,y, this.DoorWidth, this.Left180);
-        context.lineTo(x - this.DoorWidth - this.DoorFromWall - this.TallToiletWidth, y);
-        context.lineTo(x - this.DoorWidth - this.DoorFromWall - this.TallToiletWidth, y + this.ToiletLength);
-        context.lineTo(this.MinX + this.Room6Width, y + this.ToiletLength);
-        context.lineTo(this.MinX + this.Room6Width, this.MaxY);
-        context.lineTo(2 * this.Room5Width, this.MaxY);
-        context.closePath();
-        context.fillStrokeShape(shape);
-    }
-    shapeSceneFuncR6(context, shape) {
-        context.beginPath();
-        context.moveTo(this.MinX + this.Room6Width + this.TallToiletWidth, this.Room1Length + this.HallLength);
 
-        let x = this.MinX + this.Room6Width - this.DoorFromWall;
-        let y = this.Room1Length + this.HallLength;
+    shapeSceneFuncR1 = (context, shape) => {
 
-        context.lineTo(x, y);
-        this.drawDoor(context,x,y, this.DoorWidth, this.Left180);
-        context.lineTo(x - this.DoorWidth - this.DoorFromWall,  y);
-        context.lineTo(x - this.DoorWidth - this.DoorFromWall,  y + this.HallLength);
-        context.lineTo(this.MinX,  y + this.HallLength);
-        context.lineTo(this.MinX,  this.MaxY);
-        context.lineTo(this.MinX + this.Room6Width ,  this.MaxY);
-        context.lineTo(this.MinX + this.Room6Width ,  this.Room1Length + this.HallLength + this.ToiletLength);
-        context.lineTo(this.MinX + this.Room6Width + this.TallToiletWidth,  this.Room1Length + this.HallLength + this.ToiletLength);
+        this.beginRoom(context, this.MinX, this.MinY);
 
-        context.closePath();
-        context.fillStrokeShape(shape);
+        context.lineTo(this.MinX + 2 * this.ShortWallLength,  this.MinY);
+        context.lineTo(this.MinX + 2 * this.ShortWallLength,  this.MinY + this.Level1);
+        context.lineTo(this.MinX + this.ShortWallLength,  this.MinY + this.Level1);
+        context.lineTo(this.MinX + this.ShortWallLength,  this.MinY + 340);
+        context.lineTo(this.MinX,  this.MinY + 340);
+
+        this.finishRoom(context, shape, this.MinX, this.MinY);
+    }
+
+    shapeSceneFuncR2 = (context, shape) => {
+
+        let startX = this.MinX + 2 * this.ShortWallLength + this.Break;
+
+        this.beginRoom(context, startX, this.MinY);
+
+        context.lineTo(startX + 195,  this.MinY);
+        context.lineTo(startX + 195,  this.MinY + 115);
+        context.lineTo(startX + 195 - this.ShortWallLength,  this.MinY + 115);
+        context.lineTo(startX + 195 - this.ShortWallLength,  this.MinY + this.Level1);
+        context.lineTo(startX + 85,  this.MinY + this.Level1);
+        context.lineTo(startX + 85,  this.MinY + 180);
+        context.lineTo(startX,  this.MinY + 180);
+
+        this.finishRoom(context, shape, startX, this.MinY);
+    }
+
+    shapeSceneFuncR3 = (context, shape) => {
+
+        let startX = this.MinX + 2 * this.ShortWallLength + this.Break + 195 + this.Break;
+
+        this.beginRoom(context, startX, this.MinY);
+
+        context.lineTo(startX + 190,  this.MinY);
+        context.lineTo(startX + 190,  this.MinY + this.Level1);
+        context.lineTo(startX + 60,  this.MinY + this.Level1);
+        context.lineTo(startX + 60,  this.MinY + 180);
+        context.lineTo(startX,  this.MinY + 180);
+        context.lineTo(startX,  this.MinY + this.Level1);
+        context.lineTo(startX - this.ShortWallLength,  this.MinY + this.Level1);
+        context.lineTo(startX - this.ShortWallLength,  this.MinY + 125);
+        context.lineTo(startX,  this.MinY + 125);
+
+        this.finishRoom(context, shape, startX, this.MinY);
+    }
+
+    shapeSceneFuncR4 = (context, shape) => {
+
+        let startX = this.MinX;
+        let startY = this.MinY + 340 + this.Break;
+
+        this.beginRoom(context, startX, startY);
+
+        context.lineTo(this.MinX + this.ShortWallLength + this.Break, startY);
+        context.lineTo(this.MinX + this.ShortWallLength + this.Break, this.MinY + this.Level1 + 10);
+        context.lineTo(this.MinX + 2 * this.ShortWallLength + this.Break, this.MinY + this.Level1 + 10);
+        context.lineTo(this.MinX + 2 * this.ShortWallLength + this.Break, this.Level2);
+        context.lineTo(this.MinX + 2 * this.ShortWallLength + this.Break + 50, this.Level2);
+        context.lineTo(this.MinX + 2 * this.ShortWallLength + this.Break + 50, this.Level3);
+        context.lineTo(this.MinX, this.Level3);
+
+        this.finishRoom(context, shape, startX, startY);
+    }
+
+    shapeSceneFuncR5 = (context, shape) => {
+
+        let startX = this.MinX + 2 * this.ShortWallLength + 2 * this.Break + 50;
+
+        this.beginRoom(context, startX, this.Level2);
+
+        context.lineTo(startX + 115, this.Level2);
+        context.lineTo(startX + 115, this.Level2 + 100);
+        context.lineTo(startX + 115 + this.ShortWallLength, this.Level2 + 100);
+        context.lineTo(startX + 115 + this.ShortWallLength, this.Level3 + 20);
+        context.lineTo(startX, this.Level3 + 20);
+
+        this.finishRoom(context, shape, startX, this.Level2);
+    }
+
+    shapeSceneFuncR6 = (context, shape) => {
+
+        let startX = this.MinX + 2 * this.ShortWallLength + 3 * this.Break + 50 + 115;
+
+        this.beginRoom(context, startX, this.Level2);
+
+        context.lineTo(startX + this.ShortWallLength + 40, this.Level2);
+        context.lineTo(startX + this.ShortWallLength + 40, this.Level2 + 60);
+        context.lineTo(startX + this.ShortWallLength + 150, this.Level2 + 60);
+        context.lineTo(startX + this.ShortWallLength + 150, this.Level3);
+        context.lineTo(startX + this.ShortWallLength, this.Level3);
+        context.lineTo(startX + this.ShortWallLength, this.Level2 + 100 - this.Break);
+        context.lineTo(startX, this.Level2 + 100 - this.Break);
+
+        this.finishRoom(context, shape, startX, this.Level2);
+    }
+
+
+    shapeSceneFuncR7 = (context, shape) => {
+
+        let startX = 935;
+
+        this.beginRoom(context, startX, this.MinY);
+
+        context.lineTo(startX + 190,  this.MinY);
+        context.lineTo(startX + 190,  this.MinY + 125);
+        context.lineTo(startX + 190 + this.ShortWallLength,  this.MinY + 125);
+        context.lineTo(startX + 190 + this.ShortWallLength,  this.MinY + this.Level1);
+        context.lineTo(startX + 190,  this.MinY + this.Level1);
+        context.lineTo(startX + 190,  this.MinY + 180);
+        context.lineTo(startX + 190 - 60,  this.MinY + 180);
+        context.lineTo(startX + 190 - 60,  this.MinY + this.Level1);
+        context.lineTo(startX, this.MinY + this.Level1);
+
+        this.finishRoom(context, shape, startX, this.MinY);
+    }
+
+    shapeSceneFuncR8 = (context, shape) => {
+
+        let startX = 935 + 190 + this.Break;
+
+        this.beginRoom(context, startX, this.MinY);
+
+        context.lineTo(startX + 195,  this.MinY);
+        context.lineTo(startX + 195,  this.MinY + 180);
+        context.lineTo(startX + 195 - 85,  this.MinY + 180);
+        context.lineTo(startX + 195 - 85,  this.MinY + this.Level1);
+        context.lineTo(startX + this.ShortWallLength,  this.MinY + this.Level1);
+        context.lineTo(startX + this.ShortWallLength,  this.MinY + 115);
+        context.lineTo(startX , this.MinY + 115);
+
+        this.finishRoom(context, shape, startX, this.MinY);
+    }
+
+    shapeSceneFuncR9 = (context, shape) => {
+
+        let startX = 935 + 190 + 2 * this.Break + 195;
+
+        this.beginRoom(context, startX, this.MinY);
+
+        context.lineTo(startX + 2 * this.ShortWallLength,  this.MinY);
+        context.lineTo(startX + 2 * this.ShortWallLength,  this.MinY + 340);
+        context.lineTo(startX + this.ShortWallLength,  this.MinY + 340);
+        context.lineTo(startX + this.ShortWallLength,  this.MinY + this.Level1);
+        context.lineTo(startX,  this.MinY + this.Level1);
+
+        this.finishRoom(context, shape, startX, this.MinY);
+    }
+
+    shapeSceneFuncR10 = (context, shape) => {
+
+        let startX = 935 + 190 + 2 * this.Break + 195 + 2 * this.ShortWallLength;
+        let startY = this.MinY + 340 + this.Break;
+
+        this.beginRoom(context, startX, startY);
+        context.lineTo(startX - this.ShortWallLength - this.Break, startY);
+        context.lineTo(startX - this.ShortWallLength - this.Break, startY - 110 - this.Break);
+        context.lineTo(startX - 2 * this.ShortWallLength - this.Break, startY - 110 - this.Break);
+        context.lineTo(startX - 2 * this.ShortWallLength - this.Break, this.Level2);
+        context.lineTo(startX - 2 * this.ShortWallLength - this.Break - 50, this.Level2);
+        context.lineTo(startX - 2 * this.ShortWallLength - this.Break - 50, this.Level3);
+        context.lineTo(startX, this.Level3);
+
+        this.finishRoom(context, shape, startX, startY);
+    }
+
+    shapeSceneFuncR11 = (context, shape) => {
+
+        let startX = 935 + 190 + 195 - this.ShortWallLength + this.Break;
+
+        this.beginRoom(context, startX, this.Level2);
+        context.lineTo(startX - 115, this.Level2);
+        context.lineTo(startX - 115, this.Level2 + 100);
+        context.lineTo(startX - 115 - this.ShortWallLength, this.Level2 + 100);
+        context.lineTo(startX - 115 - this.ShortWallLength, this.Level3 + 20);
+        context.lineTo(startX, this.Level3 + 20);
+
+        this.finishRoom(context, shape, startX, this.Level2);
+    }
+
+    shapeSceneFuncR12 = (context, shape) => {
+
+        let startX = 935 + 195 + 15;
+
+        this.beginRoom(context, startX, this.Level2);
+        context.lineTo(startX - this.ShortWallLength - 40, this.Level2);
+        context.lineTo(startX - this.ShortWallLength - 40, this.Level2 + 60);
+        context.lineTo(startX - this.ShortWallLength - 150, this.Level2 + 60);
+        context.lineTo(startX - this.ShortWallLength - 150, this.Level3);
+        context.lineTo(startX - this.ShortWallLength, this.Level3);
+        context.lineTo(startX - this.ShortWallLength, this.Level2 + 100 - this.Break);
+        context.lineTo(startX, this.Level2 + 100 - this.Break);
+
+        this.finishRoom(context, shape, startX, this.Level2);
     }
 
     render(){
         return (
-            <Stage width={1500} height={600}>
+         <div className="img-center">
+            <Stage width={1500} height={550}>
+
                 <Layer>
                     <Shape sceneFunc={this.shapeSceneFuncR1} fill={this.props.colors[0]} stroke="black" strokeWidth={4} onClick={(e) => this.props.onClick(1, e)}/>
                     <Shape sceneFunc={this.shapeSceneFuncR2} fill={this.props.colors[1]} stroke="black" strokeWidth={4} onClick={(e) => this.props.onClick(2, e)}/>
@@ -198,9 +236,18 @@ export default class RoomsView extends Component{
                     <Shape sceneFunc={this.shapeSceneFuncR4} fill={this.props.colors[3]} stroke="black" strokeWidth={4} onClick={(e) => this.props.onClick(4, e)}/>
                     <Shape sceneFunc={this.shapeSceneFuncR5} fill={this.props.colors[4]} stroke="black" strokeWidth={4} onClick={(e) => this.props.onClick(5, e)}/>
                     <Shape sceneFunc={this.shapeSceneFuncR6} fill={this.props.colors[5]} stroke="black" strokeWidth={4} onClick={(e) => this.props.onClick(6, e)}/>
+                    <Shape sceneFunc={this.shapeSceneFuncR7} fill={this.props.colors[6]} stroke="black" strokeWidth={4} onClick={(e) => this.props.onClick(7, e)}/>
+                    <Shape sceneFunc={this.shapeSceneFuncR8} fill={this.props.colors[7]} stroke="black" strokeWidth={4} onClick={(e) => this.props.onClick(8, e)}/>
+                    <Shape sceneFunc={this.shapeSceneFuncR9} fill={this.props.colors[8]} stroke="black" strokeWidth={4} onClick={(e) => this.props.onClick(9, e)}/>
+                    <Shape sceneFunc={this.shapeSceneFuncR10} fill={this.props.colors[9]} stroke="black" strokeWidth={4} onClick={(e) => this.props.onClick(10, e)}/>
+                    <Shape sceneFunc={this.shapeSceneFuncR11} fill={this.props.colors[10]} stroke="black" strokeWidth={4} onClick={(e) => this.props.onClick(11, e)}/>
+                    <Shape sceneFunc={this.shapeSceneFuncR12} fill={this.props.colors[11]} stroke="black" strokeWidth={4} onClick={(e) => this.props.onClick(12, e)}/>
                 </Layer>
             </Stage>
+         </div>
         );
     }
 }
+
+
 

@@ -5,7 +5,7 @@ export default function Section({ title, subtitle, id, sectionClass}) {
         <div className={sectionClass}>
             <div id={id}>
                 <h1>{title}</h1>
-                <p>{subtitle}</p>
+               {subtitle}
             </div>
         </div>
     );

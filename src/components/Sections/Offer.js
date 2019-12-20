@@ -4,7 +4,7 @@ class Offer extends Component{
 
     render() {
         return(
-            <div className="offer-text">
+            <div className="test-2">
                 <br/>
                 <br/>
                 <br/>
@@ -37,10 +37,8 @@ class Offer extends Component{
                 <br/>
 
                 Cennik na noclegi dla klientów indywidualnych dostępny jest poprzez rezerwację online lub telefonicznie.
-                <br />
-                Dzieci do lat 4 nocleg w pokoju rodziców lub opiekunów – bez dostawki (max 2 dzieci w pokoju) – gratis
-                <br />
-                Doba hotelowa rozpoczyna się od godz. 14:00 i trwa do godz.12:00
+                Dzieci do lat 4 nocleg w pokoju rodziców lub opiekunów – bez dostawki (max 2 dzieci w pokoju) – gratis.
+                Doba hotelowa rozpoczyna się od godz. 14:00 i trwa do godz.12:00.
                 <br/>
              </div>
         );

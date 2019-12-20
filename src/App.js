@@ -8,7 +8,7 @@ import 'primeicons/primeicons.css';
 import Home from "./components/Home";
 import FloorPlan from "./components/FloorPlan/FloorPlan";
 
-class App extends Component {
+export default class App extends Component {
     
     constructor() {
         super();
@@ -27,4 +27,3 @@ class App extends Component {
     }
 }
 
-export default App;

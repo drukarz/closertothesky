@@ -36,24 +36,24 @@ class Home extends Component{
                         subtitle={about}
                         id="section2"/>
                     <Section
-                        sectionClass="section-2"
+                        sectionClass="section-3"
                         title="Rezerwacja"
                         subtitle={registration}
                         dark={false}
                         id="section3"/>
                     <Section
-                        sectionClass="section-2"
+                        sectionClass="section-4"
                         title="Galeria"
                         subtitle={gallery}
                         id="section4"/>
                     <Section
-                        sectionClass="section-2"
+                        sectionClass="section-5"
                         title="Atrakcje"
                         subtitle={attractions}
                         dark={false}
                         id="section5"/>
                     <Section
-                        sectionClass="section-2"
+                        sectionClass="section-6"
                         title="Kontakt"
                         subtitle={contact}
                         id="section6"/>
