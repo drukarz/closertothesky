@@ -16,18 +16,18 @@ export default class FloorPlan extends Component{
             numberOfVege: 0,
             activeReservation: false,
             rooms : [
-                {number: 1, originalColor: "#27A5BE", color: "#27A5BE", numberOfPersons: 0, numberOfVege: 0, price: []},
-                {number: 2, originalColor: "#45BFD7", color: "#45BFD7", numberOfPersons: 0, numberOfVege: 0, price: []},
-                {number: 3, originalColor: "#70CDDF", color: "#70CDDF", numberOfPersons: 0, numberOfVege: 0, price: []},
-                {number: 4, originalColor: "#89D6E5", color: "#89D6E5", numberOfPersons: 0, numberOfVege: 0, price: []},
-                {number: 5, originalColor: "#9EDDE9", color: "#9EDDE9", numberOfPersons: 0, numberOfVege: 0, price: []},
-                {number: 6, originalColor: "#9EDDE9", color: "#9EDDE9", numberOfPersons: 0, numberOfVege: 0, price: []},
-                {number: 7, originalColor: "#27A5BE", color: "#27A5BE", numberOfPersons: 0, numberOfVege: 0, price: []},
-                {number: 8, originalColor: "#45BFD7", color: "#45BFD7", numberOfPersons: 0, numberOfVege: 0, price: []},
-                {number: 9, originalColor: "#70CDDF", color: "#70CDDF", numberOfPersons: 0, numberOfVege: 0, price: []},
-                {number: 10, originalColor: "#89D6E5", color: "#89D6E5", numberOfPersons: 0, numberOfVege: 0, price: []},
-                {number: 11, originalColor: "#9EDDE9", color: "#9EDDE9", numberOfPersons: 0, numberOfVege: 0, price: []},
-                {number: 12, originalColor: "#9EDDE9", color: "#9EDDE9", numberOfPersons: 0, numberOfVege: 0, price: []}
+                {number: 1, originalColor: "#D7D6D6", color: "#D7D6D6", numberOfPersons: 0, numberOfVege: 0, price: []},
+                {number: 2, originalColor: "#D7D6D6", color: "#D7D6D6", numberOfPersons: 0, numberOfVege: 0, price: []},
+                {number: 3, originalColor: "#D7D6D6", color: "#D7D6D6", numberOfPersons: 0, numberOfVege: 0, price: []},
+                {number: 4, originalColor: "#D7D6D6", color: "#D7D6D6", numberOfPersons: 0, numberOfVege: 0, price: []},
+                {number: 5, originalColor: "#D7D6D6", color: "#D7D6D6", numberOfPersons: 0, numberOfVege: 0, price: []},
+                {number: 6, originalColor: "#D7D6D6", color: "#D7D6D6", numberOfPersons: 0, numberOfVege: 0, price: []},
+                {number: 7, originalColor: "#D7D6D6", color: "#D7D6D6", numberOfPersons: 0, numberOfVege: 0, price: []},
+                {number: 8, originalColor: "#D7D6D6", color: "#D7D6D6", numberOfPersons: 0, numberOfVege: 0, price: []},
+                {number: 9, originalColor: "#D7D6D6", color: "#D7D6D6", numberOfPersons: 0, numberOfVege: 0, price: []},
+                {number: 10, originalColor: "#D7D6D6", color: "#D7D6D6", numberOfPersons: 0, numberOfVege: 0, price: []},
+                {number: 11, originalColor: "#D7D6D6", color: "#D7D6D6", numberOfPersons: 0, numberOfVege: 0, price: []},
+                {number: 12, originalColor: "#D7D6D6", color: "#D7D6D6", numberOfPersons: 0, numberOfVege: 0, price: []}
             ],
 
             reservedRooms : [],
@@ -39,38 +39,20 @@ export default class FloorPlan extends Component{
     onClick = (id, e) => {
 
         let newRooms = this.state.rooms;
-        let activeReservation = false;
-        let numberOfSelectedRooms = 0;
-        let message = "";
+
+        if(newRooms[id - 1].color === "#CC0000")
+            return;
 
         newRooms[id - 1].selected = !newRooms[id - 1].selected;
 
-        newRooms.forEach((room) => {
-            if(room.selected === true) {
-                activeReservation = true;
-                numberOfSelectedRooms = numberOfSelectedRooms + 1;
-            }
-        })
-
         if(newRooms[id - 1].selected === false)
-            newRooms[id - 1].color =  newRooms[id - 1].originalColor;
+            newRooms[id - 1].color = newRooms[id - 1].originalColor;
         else
             this.setState({visibleRoomId: id - 1, viewMode: 'singleRoomView'});
 
-        if(numberOfSelectedRooms === 0)
-            message = 'wybierz pokój';
+        this.setState({rooms : newRooms});
 
-        if(numberOfSelectedRooms === 1)
-            message = 'wybrano 1 pokój';
-
-        if(numberOfSelectedRooms > 1 && numberOfSelectedRooms < 5)
-            message = 'wybrano ' + numberOfSelectedRooms + ' pokoje';
-
-        if(numberOfSelectedRooms > 4)
-            message = 'wybrano ' + numberOfSelectedRooms + ' pokoi';
-
-        this.setState({rooms : newRooms, activeReservation : activeReservation, message: message});
-
+        this.prepareMessage();
     }
 
     onPlusPersons = () => {
@@ -103,6 +85,8 @@ export default class FloorPlan extends Component{
         let newRooms = this.state.rooms;
         newRooms[this.state.visibleRoomId].selected = false;
         this.setState({numberOfPersons : 0, numberOfVege : 0, viewMode: 'roomsView'});
+
+        this.prepareMessage();
     }
 
     onMakeReservation = ()=> {
@@ -132,10 +116,38 @@ export default class FloorPlan extends Component{
         this.setState({viewMode: 'confirmationView', reservedRooms : reservedRooms});
     }
 
+    prepareMessage = () => {
+
+        let newRooms = this.state.rooms;
+        let activeReservation = false;
+        let numberOfSelectedRooms = 0;
+        let message = "";
+
+        newRooms.forEach((room) => {
+            if(room.selected === true) {
+                activeReservation = true;
+                numberOfSelectedRooms = numberOfSelectedRooms + 1;
+            }
+        })
+
+        if(numberOfSelectedRooms === 0)
+            message = 'wybierz pokój';
+
+        if(numberOfSelectedRooms === 1)
+            message = 'wybrano 1 pokój';
+
+        if(numberOfSelectedRooms > 1 && numberOfSelectedRooms < 5)
+            message = 'wybrano ' + numberOfSelectedRooms + ' pokoje';
+
+        if(numberOfSelectedRooms > 4)
+            message = 'wybrano ' + numberOfSelectedRooms + ' pokoi';
+
+        this.setState({activeReservation : activeReservation, message: message});
+    }
+
     componentWillReceiveProps(nextProps, nextContext) {
 
-        // little trick - when newly appear on the screen reset to rooms view
-
+        // when newly appearing on the screen reset to rooms view
         let newRooms = this.state.rooms;
 
         newRooms.forEach((room) => {
@@ -146,7 +158,7 @@ export default class FloorPlan extends Component{
         this.setState({viewMode: 'roomsView',
                        reservedRooms : [],
                        rooms: newRooms,
-                       message: 'wybierz pokój'});
+                       activeReservation: false});
 
         axios.get('http://localhost:8989/rooms')
             .then( rooms => {
@@ -168,22 +180,33 @@ export default class FloorPlan extends Component{
                 }
             )
 
+        let allRoomsReserved = true;
+
         axios.get('http://localhost:8989/reservations?fromDate=' + this.props.dateStart +
             '&toDate=' + this.props.dateStop)
             .then(reservations => {
-                reservations.data.forEach((res) => {
-                        newRooms[res.room.number - 1].color = "#CC0000";
-                    }
+                    reservations.data.forEach((res) => {
+                            newRooms[res.room.number - 1].color = "#CC0000";
+                        }
                 );
 
-                this.setState({rooms: newRooms});
+                newRooms.forEach((room) => {
+                    if(room.color !== "#CC0000")
+                        allRoomsReserved = false;
+                })
+
+                let message = allRoomsReserved === true ? 'przepraszamy w podanym terminie nie ma wolnych pokoi' :
+                                                          'wybierz pokój';
+
+                this.setState({rooms: newRooms, message: message});
+
             })
     }
 
     render(){
 
         return (
-            <div>
+            <div className="back-5">
                 {this.state.viewMode === 'roomsView' &&
                     <RoomsView colors={this.state.rooms.map((room) => room.color)}
                                onClick={this.onClick}/>

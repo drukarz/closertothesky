@@ -52,7 +52,7 @@ class Registration extends Component
 
         this.setState({enabledDateTo: true});
         this.setState({dateStart: date.toISOString().substring(0, 10)});
-        this.setState({minDateTo: event.value});
+        this.setState({minDateTo: date});
         this.setState({dateStop: null})
         this.setState({checkButtonDisabled: true});
 
@@ -85,6 +85,7 @@ class Registration extends Component
     onHide = () => {
 
         this.setState({dialogVisible : false});
+        this.forceUpdate();
     }
 
     render()
@@ -117,8 +118,7 @@ class Registration extends Component
                         visible={this.state.dialogVisible}
                         style={{width: '80vw'}}
                         footer="" onHide={this.onHide}
-                        modal={true}
-                        maximizable>
+                        modal={true}>
                     <FloorPlan dateStart={this.state.dateStart} dateStop={this.state.dateStop} onHide = {this.onHide}/>
                 </Dialog>
 

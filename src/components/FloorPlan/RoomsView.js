@@ -236,12 +236,26 @@ export default class RoomsView extends Component{
                     <Shape sceneFunc={this.shapeSceneFuncR4} fill={this.props.colors[3]} stroke="black" strokeWidth={4} onClick={(e) => this.props.onClick(4, e)}/>
                     <Shape sceneFunc={this.shapeSceneFuncR5} fill={this.props.colors[4]} stroke="black" strokeWidth={4} onClick={(e) => this.props.onClick(5, e)}/>
                     <Shape sceneFunc={this.shapeSceneFuncR6} fill={this.props.colors[5]} stroke="black" strokeWidth={4} onClick={(e) => this.props.onClick(6, e)}/>
+
                     <Shape sceneFunc={this.shapeSceneFuncR7} fill={this.props.colors[6]} stroke="black" strokeWidth={4} onClick={(e) => this.props.onClick(7, e)}/>
                     <Shape sceneFunc={this.shapeSceneFuncR8} fill={this.props.colors[7]} stroke="black" strokeWidth={4} onClick={(e) => this.props.onClick(8, e)}/>
                     <Shape sceneFunc={this.shapeSceneFuncR9} fill={this.props.colors[8]} stroke="black" strokeWidth={4} onClick={(e) => this.props.onClick(9, e)}/>
                     <Shape sceneFunc={this.shapeSceneFuncR10} fill={this.props.colors[9]} stroke="black" strokeWidth={4} onClick={(e) => this.props.onClick(10, e)}/>
                     <Shape sceneFunc={this.shapeSceneFuncR11} fill={this.props.colors[10]} stroke="black" strokeWidth={4} onClick={(e) => this.props.onClick(11, e)}/>
                     <Shape sceneFunc={this.shapeSceneFuncR12} fill={this.props.colors[11]} stroke="black" strokeWidth={4} onClick={(e) => this.props.onClick(12, e)}/>
+                    <Text x={110}  y={50} text={"5"} fontSize={32} visible={this.props.colors[0] === "#CC0000" ? false : true}/>
+                    <Text x={245}  y={50} text={"6"} fontSize={32} visible={this.props.colors[1] === "#CC0000" ? false : true}/>
+                    <Text x={450}  y={50} text={"2"} fontSize={32} visible={this.props.colors[2] === "#CC0000" ? false : true}/>
+                    <Text x={110}  y={470} text={"4"} fontSize={32} visible={this.props.colors[3] === "#CC0000" ? false : true}/>
+                    <Text x={300}  y={470} text={"3"} fontSize={32} visible={this.props.colors[4] === "#CC0000" ? false : true}/>
+                    <Text x={490}  y={470} text={"1"} fontSize={32} visible={this.props.colors[5] === "#CC0000" ? false : true}/>
+
+                    <Text x={950}  y={50} text={"8"} fontSize={32} visible={this.props.colors[6] === "#CC0000" ? false : true}/>
+                    <Text x={950}  y={470} text={"7"} fontSize={32} visible={this.props.colors[11] === "#CC0000" ? false : true}/>
+                    <Text x={1110}  y={470} text={"9"} fontSize={32} visible={this.props.colors[10] === "#CC0000" ? false : true}/>
+                    <Text x={1290}  y={470} text={"10"} fontSize={32} visible={this.props.colors[9] === "#CC0000" ? false : true}/>
+                    <Text x={1150}  y={50} text={"12"} fontSize={32} visible={this.props.colors[7] === "#CC0000" ? false : true}/>
+                    <Text x={1350}  y={50} text={"11"} fontSize={32} visible={this.props.colors[8] === "#CC0000" ? false : true}/>
                 </Layer>
             </Stage>
          </div>

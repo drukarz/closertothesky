@@ -1,0 +1,121 @@
+--- web strona ---
+
+1. main 
+
+   OK - atrakcje rozwalka
+   - kontakt
+   OK - oferta o nas - takie same odstepy
+   OK - rezerwacja przyjazd/wyjazd wieksze
+   OK - przyciski na rezerwacji
+   OK - blad na main - rozsypuje sie po zamknieciu okna rezerwacji
+   - spinner ladowanie systemu rezerwacji
+
+3. galeria
+
+   - spinner podczas ladowania
+   OK - tytul wiekszy
+   OK - footer - wiekszy przycisk
+   OK - wycentruj okienko
+   OK - back zbyt kusy 
+
+5. rezerwacja
+
+   OK - blad dzien do - tylko nastepny 
+
+6. floor
+ 
+   OK - rozklad dokladny wyrysowac-3 pokoje
+   OK - wszystkie 12 pokoi sie pokazuje w oknie dial
+   OK - do floor - tylko 1 dialog
+  
+   OK - background
+
+     S1
+       OK wrysowac numerki pokoi 
+       OK - pokój zarezerwowany nie pokazuje okna dial      
+       OK - jesli wszystko czerwone - pojawia sie info - niestety w podanym terminie nie mamy wolnych pokoi
+       OK - jesli cos do wyboru pojawia sie info - wybierz pokój
+       OK - jesli wybralismy to pojawia sie info : wybrany pokój _ osób _ wege sniadania _  
+       OK - footer dopracowac
+       OK - pokoje odcienie szarosci
+       OK - bug przy wyborze pokoi - wybrano 1 pokój zle sie swieci jesli wybiore a z single wyjde przez zamknij - zatwierdz aktywny przy braku wyboru !
+  
+     S2
+       OK - rezerwacja wege
+       OK - ceny za osoby  
+       OK - ujemna cena sie pokazuje
+       OK - cena powinna uwzgledniac liczbe dni
+
+    S3	
+   
+      OK - potwierdzenie rozklad elementów + imie + nazwisko  
+      OK - potwierdzenie email
+      OK - wyglad okna
+      OK - walidacja
+      OK - potwierdzenie post do serwera
+      OK - okienko zatwierdz powinno zamykac dial i wracac do strony main
+        
+8. error boundary jesli nie ma polaczenia z serwerem
+OK 9. nie powinno sie dac wrzucac rezerwacji "do" na ten sam dzien
+10. regulamin dopiac
+11. strona logowania 
+OK 12. lista rzeczy do Meca
+13. posprzatac css
+OK 14. warningi
+OK 15. atrakcje - wieksze tytuly
+OK 17. atrakcje - nowa mapa
+18. RODO - informacja
+19. zdjecia - porzadek w nazwach
+
+
+FINALNE : 
+
+WEB
+
+- zdjecia
+- RODO
+OK - posprzatac CSS
+- strona logowania
+- error boundary
+- spinner - system rezerwacji
+- spinner - zdjecia
+- regulamin 
+- kontakt
+- background dla zdjec atrakcji
+- sprawdz dostepnosc wyjazd / przyjazd wieksza czcionka
+- info - sprawdz i potwierdz rezerwacje w ciau odziny
+
+
+- serwer render
+- deploy : https://www.freecodecamp.org/news/how-to-set-up-deploy-your-react-app-from-scratch-using-webpack-and-babel-a669891033d4/
+
+SERVER
+
+- try catche i implementacja bledów
+- wysylanie maila
+- pendin w rezerwacji 
+- cross origin
+- logowanie akcji
+- certyfikat
+- hosting ustalic
+
+
+
+------------------------------------------------------------------------------------------------
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

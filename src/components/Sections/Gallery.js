@@ -21,7 +21,6 @@ class Gallery extends Component
             backIndex: "back-1",
             backs : ["back-1", 'back-2', 'back-3',
                      'back-4', 'back-5', 'back-6'],
-
         }
 
         this.onHide = this.onHide.bind(this);
@@ -32,18 +31,18 @@ class Gallery extends Component
 
         if(actionId === "attractions")
         {
-            this.setState({header: "Wokół Nas",
+            this.setState({header: "WOKÓŁ NAS",
                 images : ['A1', 'A2', 'A3', 'A6', 'A7', 'A8', 'A10', 'A13'].map( (name, index) => {
                     return <img key={index}
                                 className="gallery-img-space" alt=""
                                 src={require(`../../assets/images/gallery/around/${name}.JPG`)} />
-                }), backIndex: this.state.backs[4]});
+                }), backIndex: this.state.backs[4]}, ()=> {console.log("attractions loaded")} );
 
         }
 
         if(actionId === "rooms")
         {
-            this.setState({header: "Pokoje",
+            this.setState({header: "POKOJE",
                                  images : ['R1', 'R2', 'R3', 'R4', 'R5', 'R6'].map( (name, index) => {
                                  return <img key={index}
                                          className="gallery-img-space" alt=""
@@ -54,20 +53,31 @@ class Gallery extends Component
 
         if(actionId === "restaurant")
         {
-            this.setState({header: "Restauracja",
-                                 images : ['R1', 'R2', 'R3', 'R4', 'R5', 'R6'].map( (name, index) => {
+            this.setState({header: "RESTAURACJA",
+                                 images : ['R2', 'R6', 'R7', 'R7'].map( (name, index) => {
                                  return <img key={index}
-                                         className="gallery-img-space" alt=""
+                                         className="gallery-img-space-1" alt=""
                                          src={require(`../../assets/images/gallery/restaurant/${name}.jpg`)} />
                 }),
             backIndex: this.state.backs[1]});
         }
 
         if(actionId === "conference")
-            this.setState({header: "Sala konferencyjna", backIndex: this.state.backs[2]});
+            this.setState({header: "SALA KONFERENCYJNA", backIndex: this.state.backs[2]});
 
         if(actionId === "spa")
-            this.setState({header: "Strefa Spa", backIndex: this.state.backs[3]});
+        {
+            this.setState({
+                header: "STREFA SPA",
+                images: ['S1', 'S2', 'S3', 'S4'].map((name, index) => {
+                    return <img key={index}
+                                className="gallery-img-space-1" alt=""
+                                src={require(`../../assets/images/gallery/spa/${name}.jpg`)}/>
+                }),
+                backIndex: this.state.backs[3]});
+        }
+        if(actionId === "library")
+            this.setState({header: "BIBLIOTEKA", backIndex: this.state.backs[3]});
 
         this.setState({visible: true});
     }
@@ -78,12 +88,6 @@ class Gallery extends Component
     }
 
     render() {
-
-        const footer = (
-            <div>
-                <Button label="zamknij" icon="pi pi-check" onClick={this.onHide} />
-            </div>
-        );
 
         return(
             <div >
@@ -103,10 +107,23 @@ class Gallery extends Component
                 <Dialog style={{width: '80vw'}}
                         header={this.state.header}
                         visible={this.state.visible}
-                        footer={footer} onHide={this.onHide} modal={true}
+                        onHide={this.onHide} modal={true}
                         resizable={false}>
                     <div className={this.state.backIndex}>
+                        <br/>
+                        <br/>
+                        <br/>
                         {this.state.images}
+                        <br/>
+                        <br/>
+                        <br/>
+                        <br/>
+                        <br/>
+                        <Button className="button-size" label="zamknij" icon="pi pi-check" onClick={this.onHide} />
+                        <br/>
+                        <br/>
+                        <br/>
+                        <br/>
                     </div>
                 </Dialog>
             </div>
