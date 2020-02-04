@@ -8,6 +8,7 @@
   "dependencies": {
     "axios": "^0.18.0",
     "classnames": "^2.2.6",
+    "file-saver": "^2.0.2",
     "install": "^0.12.2",
     "konva": "^2.6.0",
     "npm": "^6.7.0",

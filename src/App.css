@@ -150,12 +150,6 @@
   padding: 40px;
 }
 
-.back-all {
-  background: url('./assets/images/all.jpg') no-repeat;
-  background-size: 100%;
-  padding: 40px;
-}
-
 .top-width {
   width:  100vw;
 }
@@ -179,9 +173,9 @@
 
 .gallery-img-space
 {
-  width:  20%;
-  height: 20%;
-  margin: 15px;
+  width:  25%;
+  height: 25%;
+  margin: 5px;
 }
 
 .img-center {
@@ -253,16 +247,20 @@
   color: red;
 }
 
-.gallery-img-space-1
-{
-    width:  20%;
-    height: 20%;
-    margin: 5px;
-}
-
 .button-text
 {
-  font-size: 32pt;
+  width: 200px;
 }
 
+.single-room-img-space
+{
+  width:  30%;
+  height: 30%;
+  margin: 5px;
+}
 
+.contact-text
+{
+  text-align: center;
+  font-size: 15pt;
+}

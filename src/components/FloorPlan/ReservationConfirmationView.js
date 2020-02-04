@@ -142,6 +142,8 @@ export default class ReservationConfirmationView extends Component {
                 </div>
                 <h2 className="registration-confirmation-text">Wkrótce na wskazany adres zostanie wysłany link
                     aktywujący rezerwację.</h2>
+                <h2 className="registration-confirmation-text">W celu potwierdzenia rezerwacji prosimy kliknąć w link.
+                    Będzie on aktywny przez godzinę.</h2>
                 <br/>
 
                 <br/>

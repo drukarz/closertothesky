@@ -14,15 +14,15 @@ class Registration extends Component
 
         let today = new Date();
 
-        let nextMonth = (today.getMonth() === 11) ? 0 : today.getMonth() + 1;
-        let nextYear = (nextMonth === 0) ? today.getFullYear() + 1 : today.getFullYear();
+        let nextMonths = (today.getMonth() === 11) ? 0 : today.getMonth() + 6;
+        let nextYear = (nextMonths === 0) ? today.getFullYear() + 1 : today.getFullYear();
 
         let minDateFrom = new Date();
         minDateFrom.setMonth(today.getMonth());
         minDateFrom.setFullYear(today.getFullYear());
 
         let maxDate = new Date();
-        maxDate.setMonth(nextMonth);
+        maxDate.setMonth(nextMonths);
         maxDate.setFullYear(nextYear)
 
         this.state = {
@@ -35,13 +35,9 @@ class Registration extends Component
             checkButtonDisabled: true,
             dialogVisible: false,
         };
-
-        this.reservationFromOnClick = this.reservationFromOnClick.bind(this);
-        this.reservationToOnClick = this.reservationToOnClick.bind(this);
-        this.makeReservationOnClick = this.makeReservationOnClick.bind(this);
     }
 
-    reservationFromOnClick(event)
+    reservationFromOnClick = (event) =>
     {
         if(event.value === undefined)
             return;
@@ -62,7 +58,7 @@ class Registration extends Component
         }
     }
 
-    reservationToOnClick(event)
+    reservationToOnClick = (event) =>
     {
         if(event.value === "")
         {
@@ -77,7 +73,7 @@ class Registration extends Component
         this.setState({dateStop: date.toISOString().substring(0, 10)})
     }
 
-    makeReservationOnClick(event)
+    makeReservationOnClick = (event) =>
     {
         this.setState({dialogVisible : true});
     }
@@ -96,7 +92,8 @@ class Registration extends Component
                     <h3>
                         przyjazd
                     </h3>
-                    <Calendar minDate={this.state.minDateFrom}
+                    <Calendar className ="calendar"
+                              minDate={this.state.minDateFrom}
                               maxDate={this.state.maxDate}
                               value={this.state.dateStart}
                               onChange={this.reservationFromOnClick} showIcon={true} />

@@ -17,9 +17,8 @@ class Attractions extends Component
         }
     }
 
-
     clicked(area) {
-        if(area.name === "szczyrzyc")
+        /*if(area.name === "szczyrzyc")
         {
             this.setState({header: "SZCZYRZYC",
                 images : ['A1', 'A2', 'A3', 'A6', 'A7', 'A8', 'A10', 'A13'].map( (name, index) => {
@@ -74,7 +73,7 @@ class Attractions extends Component
                 })});
         }
 
-        this.setState({visible: true});
+        this.setState({visible: true});*/
     }
 
     onHide = ()=>{
@@ -153,7 +152,7 @@ class Attractions extends Component
                 </div>
                 <Dialog style={{width: '80vw'}}
                         header={this.state.header}
-                        visible={this.state.visible}
+                        visible={false}
                         onHide={this.onHide} modal={true}
                         resizable={false}>
                     <div>

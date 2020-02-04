@@ -32,7 +32,8 @@ export default class FloorPlan extends Component{
 
             reservedRooms : [],
             viewMode: 'roomsView',
-            message: 'wybierz pokój'
+            message: 'wybierz pokój',
+            error : false
         };
     }
 
@@ -179,6 +180,13 @@ export default class FloorPlan extends Component{
                     );
                 }
             )
+            .catch(error => {
+                    console.log('componentWillReceiveProps 1 catch')
+                    this.setState({error : true})
+
+                }
+            )
+
 
         let allRoomsReserved = true;
 
@@ -201,9 +209,19 @@ export default class FloorPlan extends Component{
                 this.setState({rooms: newRooms, message: message});
 
             })
+            .catch( error => {
+                    console.log('componentWillReceiveProps 2 catch')
+                    this.setState({error : true})}
+            )
     }
 
-    render(){
+    render()
+    {
+        if(this.state.error === true){
+            this.setState({error : false});
+
+            throw new Error('Przepraszamy, system rezerwacji chwilowo niedostpny.');
+        }
 
         return (
             <div className="back-5">

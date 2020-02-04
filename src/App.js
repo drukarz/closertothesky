@@ -7,22 +7,25 @@ import 'primeicons/primeicons.css';
 
 import Home from "./components/Home";
 import FloorPlan from "./components/FloorPlan/FloorPlan";
+import ErrorBoundary from "./components/ErrorBoundary";
 
 export default class App extends Component {
     
-    constructor() {
+    constructor()
+    {
         super();
     }
 
     render() {
         return (
-
-            <Router>
-                <div className="container">
-                    <Route exact path="/" component={Home} />
-                    <Route path="/floor" component={FloorPlan}/>
-                </div>
-            </Router>
+            <ErrorBoundary>
+                <Router>
+                    <div className="container">
+                        <Route exact path="/" component={Home} />
+                        <Route path="/floor" component={FloorPlan}/>
+                    </div>
+                </Router>
+            </ErrorBoundary>
         );
     }
 }

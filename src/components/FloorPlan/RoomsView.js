@@ -249,13 +249,12 @@ export default class RoomsView extends Component{
                     <Text x={110}  y={470} text={"4"} fontSize={32} visible={this.props.colors[3] === "#CC0000" ? false : true}/>
                     <Text x={300}  y={470} text={"3"} fontSize={32} visible={this.props.colors[4] === "#CC0000" ? false : true}/>
                     <Text x={490}  y={470} text={"1"} fontSize={32} visible={this.props.colors[5] === "#CC0000" ? false : true}/>
-
                     <Text x={950}  y={50} text={"8"} fontSize={32} visible={this.props.colors[6] === "#CC0000" ? false : true}/>
                     <Text x={950}  y={470} text={"7"} fontSize={32} visible={this.props.colors[11] === "#CC0000" ? false : true}/>
                     <Text x={1110}  y={470} text={"9"} fontSize={32} visible={this.props.colors[10] === "#CC0000" ? false : true}/>
                     <Text x={1290}  y={470} text={"10"} fontSize={32} visible={this.props.colors[9] === "#CC0000" ? false : true}/>
-                    <Text x={1150}  y={50} text={"12"} fontSize={32} visible={this.props.colors[7] === "#CC0000" ? false : true}/>
-                    <Text x={1350}  y={50} text={"11"} fontSize={32} visible={this.props.colors[8] === "#CC0000" ? false : true}/>
+                    <Text x={1150}  y={50} text={"11"} fontSize={32} visible={this.props.colors[7] === "#CC0000" ? false : true}/>
+                    <Text x={1350}  y={50} text={"12"} fontSize={32} visible={this.props.colors[8] === "#CC0000" ? false : true}/>
                 </Layer>
             </Stage>
          </div>
