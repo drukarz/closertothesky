@@ -82,6 +82,7 @@ export default class SingleRoomView extends Component {
     render() {
         return (
             <div>
+                <h3> System rezerwacji udostępnimy Państwu już wkrótce.</h3>
                 {this.state.images}
                 <br/>
                 <div className="single-room-components">

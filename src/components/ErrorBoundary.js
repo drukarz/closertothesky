@@ -15,17 +15,11 @@ export default class ErrorBoundary extends Component {
 
     componentDidCatch(error, info)
     {
-        console.log('componentDidCatch');
-        console.log(error.message);
-        console.log(info);
         this.setState({message : error.message})
     }
 
     render()
     {
-        console.log('EB render')
-        console.log(this.state.message)
-
         if (this.state.hasError)
         {
             return <h1>{this.state.message}</h1>;

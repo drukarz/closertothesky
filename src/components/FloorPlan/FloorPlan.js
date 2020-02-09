@@ -210,7 +210,6 @@ export default class FloorPlan extends Component{
 
             })
             .catch( error => {
-                    console.log('componentWillReceiveProps 2 catch')
                     this.setState({error : true})}
             )
     }
@@ -218,9 +217,8 @@ export default class FloorPlan extends Component{
     render()
     {
         if(this.state.error === true){
-            this.setState({error : false});
-
-            throw new Error('Przepraszamy, system rezerwacji chwilowo niedostpny.');
+           /* this.setState({error : false});
+            throw new Error('Przepraszamy, system rezerwacji chwilowo niedostpny.');*/
         }
 
         return (

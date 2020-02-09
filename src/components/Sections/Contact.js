@@ -9,7 +9,6 @@ class Contact extends Component
         this.state = {
             error : false
         };
-
     }
 
      onDownload = () => {
@@ -68,12 +67,12 @@ class Contact extends Component
                 <div>
                     384739963
                 </div>
-                <div>
+                {/*<div>
                     <br/>
                     <div>
                         aby zapoznać się z regulaminem kliknij <b onClick={this.onDownload}>pobierz</b>
                     </div>
-                </div>
+                </div>*/}
             </div>
         );
     }
