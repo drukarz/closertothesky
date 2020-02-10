@@ -9,6 +9,8 @@ import Home from "./components/Home";
 import FloorPlan from "./components/FloorPlan/FloorPlan";
 import ErrorBoundary from "./components/ErrorBoundary";
 
+import {isMobile} from "react-device-detect";
+
 export default class App extends Component {
     
     constructor()
@@ -17,6 +19,11 @@ export default class App extends Component {
     }
 
     render() {
+
+        if (isMobile) {
+            return <div>Pracujemy nad wersją mobilną naszej strony</div>
+        }
+
         return (
             <ErrorBoundary>
                 <Router>
